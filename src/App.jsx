@@ -5,6 +5,7 @@ import { Landing } from './pages/Landing';
 import { Auth } from './pages/Auth';
 import { Dashboard } from './pages/Dashboard';
 import { AdminDashboard } from './pages/AdminDashboard';
+import { Settings } from './pages/Settings';
 import { FindTeacher } from './pages/FindTeacher';
 import { Messages } from './pages/Messages';
 import { TeacherProfile } from './pages/TeacherProfile';
@@ -18,17 +19,18 @@ function App() {
     <React.Fragment>
       <GlobalLoader />
       <Router>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/teachers" element={<FindTeacher />} />
-        <Route path="/messages" element={<Messages />} />
-        <Route path="/profile/:id" element={<TeacherProfile />} />
-        <Route path="/verify" element={<Verification />} />
-        <Route path="/payment/:id" element={<Payment />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/teachers" element={<FindTeacher />} />
+          {/* <Route path="/messages" element={<Messages />} /> */}
+          <Route path="/profile/:id" element={<TeacherProfile />} />
+          <Route path="/verify" element={<Verification />} />
+          <Route path="/payment/:id" element={<Payment />} />
+        </Routes>
       </Router>
     </React.Fragment>
   );
