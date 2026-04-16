@@ -4,7 +4,7 @@ import path from 'path';
 const SRC_DIR = './src/pages';
 
 const maps = [
-  { url: "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzQ4N2E4YmYyZDExMDQwZWRiZDk2NTEzMDM2MDBmZmUxEgsSBxCJms7sqwYYAZIBIgoKcHJvamVjdF9pZBIUQhI4NjA5NTcwMTQwOTI1MTM0NTU&filename=&opi=89354086", file: "Verification.jsx", comp: "Verification" }
+  { url: "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzk4ZTJjZTRiOTMxMTQzMmQ5OWIzZTcyNDYxZjk5ODNjEgsSBxCJms7sqwYYAZIBIgoKcHJvamVjdF9pZBIUQhI4NjA5NTcwMTQwOTI1MTM0NTU&filename=&opi=89354086", file: "TeacherProfile.jsx", comp: "TeacherProfile" }
 ];
 
 async function convert() {
@@ -22,7 +22,6 @@ async function convert() {
       
       let jsx = bodyMatch[1];
       
-      // Conversions
       jsx = jsx.replace(/class=/g, "className=");
       jsx = jsx.replace(/for=/g, "htmlFor=");
       jsx = jsx.replace(/<!--[\s\S]*?-->/g, "");
