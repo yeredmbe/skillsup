@@ -4,7 +4,7 @@
   --font-sans: "Inter", "system-ui", "sans-serif";
   --font-display: "Inter", "sans-serif";
 
-  --color-primary: #000000;
+  --color-primary: #f7f7f7;
   --color-background-light: #f7f7f7;
   --color-: #191919;
 }
@@ -14,7 +14,7 @@
     @apply bg-background-light text-slate-900 border-none m-0;
     font-family: 'Inter', sans-serif;
   }
-  
+
   .material-symbols-outlined {
     font-family: 'Material Symbols Outlined';
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
