@@ -6,7 +6,7 @@ export const TeacherProfile = () => {
         <React.Fragment>
 
 
-            <header className="sticky top-0 z-50 w-full bg-white dark:bg-background-dark border-b border-slate-200 dark:border-slate-800">
+            <header className="sticky top-0 z-50 w-full bg-white dark:bg- border-b border-slate-200 dark:border-slate-800">
                 <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-8">
                         <Link to="/" className="flex items-center gap-2 text-primary dark:text-white">
@@ -30,7 +30,7 @@ export const TeacherProfile = () => {
             </header>
             <main className="max-w-5xl mx-auto pb-12">
 
-                <div className="bg-white dark:bg-background-dark shadow-sm overflow-hidden md:rounded-b-xl border-x border-b border-slate-200 dark:border-slate-800">
+                <div className="bg-white dark:bg- shadow-sm overflow-hidden md:rounded-b-xl border-x border-b border-slate-200 dark:border-slate-800">
 
                     <div className="relative h-48 md:h-80 w-full bg-slate-200">
                         <img className="w-full h-full object-cover" data-alt="Classroom interior with bookshelves and sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1zQjDALqG8bBP_znLQBNFo6Pp7PE1q50CSvr4htJQdFOn9noUc8km-8gNikJPP8DVYDDnVDuknXJWQfbmxx-bECJ7xTcWqUZ5IdRFJgpwH_QJu9Z6P0vWa7vWJZOFMgXmXP92oflNGnKw18OzSoVu8jRJgfJu8227iac7sRhXqjOSZZ2qRwAfVjJnFvOYHqcsadKSYfOkw4l6IxtbEJAYbU-vfT6HexicwYm_vfK_--JkvJOvvn3INfnl0xXeI-pTmAooIzJHqQ" />
@@ -46,7 +46,7 @@ export const TeacherProfile = () => {
                         <div className="relative flex flex-col md:flex-row items-end md:items-center gap-4 -mt-12 md:-mt-16 mb-4">
 
                             <div className="relative group">
-                                <div className="h-32 w-32 md:h-44 md:w-44 rounded-full border-4 border-white dark:border-background-dark bg-slate-100 overflow-hidden shadow-lg">
+                                <div className="h-32 w-32 md:h-44 md:w-44 rounded-full border-4 border-white dark:border- bg-slate-100 overflow-hidden shadow-lg">
                                     <img className="w-full h-full object-cover" data-alt="Professional portrait of a male teacher" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeRma--CtM3qQTmMg9bPsCGCu1Y3lu3L3fe5FQEg2R7vydsus4B8OHZK53HigW9jyKcEetQFt2Nq37kewC-Yg_z9mnvJ7IrqFJdrMZf_6mr1zPsyPbrLOTAkJ27DitXblbVwvB6m1cIo3dlP24duC1Oog0miVieCwIeHbOOS_FXzCRQ1LzyokaOn7F7HtiE25iT_PuX3qvQ4xHc1LsA-XXz6PBLLKw4Xye1XYTFo4X86Qr-MW3hj0vnPH4m6-s0PreKfOAdfEDJg" />
                                 </div>
                                 <button className="absolute bottom-2 right-2 p-2 bg-slate-100 dark:bg-slate-800 rounded-full border border-slate-300 dark:border-slate-600 hover:scale-110 transition-transform">
@@ -92,7 +92,7 @@ export const TeacherProfile = () => {
 
                     <div className="md:col-span-4 space-y-6">
 
-                        <div className="bg-white dark:bg-background-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <div className="bg-white dark:bg- p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                             <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                                 <span className="material-symbols-outlined text-primary dark:text-white">smart_display</span>
                                 Meet Your Teacher
@@ -108,7 +108,7 @@ export const TeacherProfile = () => {
                             <p className="mt-3 text-xs text-slate-500 dark:text-slate-400 text-center">Watch my methodology overview (2:15)</p>
                         </div>
 
-                        <div className="bg-white dark:bg-background-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <div className="bg-white dark:bg- p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                             <h3 className="text-lg font-bold mb-4">Quick Info</h3>
                             <div className="space-y-4">
                                 <div className="flex items-start gap-3">
@@ -136,7 +136,7 @@ export const TeacherProfile = () => {
                             </div>
                         </div>
 
-                        <div className="bg-white dark:bg-background-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <div className="bg-white dark:bg- p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                             <h3 className="text-lg font-bold mb-4">Core Subjects</h3>
                             <div className="flex flex-wrap gap-2">
                                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-bold uppercase">Calculus</span>
@@ -150,7 +150,7 @@ export const TeacherProfile = () => {
 
                     <div className="md:col-span-8 space-y-6">
 
-                        <div className="bg-white dark:bg-background-dark p-6 md:p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <div className="bg-white dark:bg- p-6 md:p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                             <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                                 <span className="material-symbols-outlined text-primary dark:text-white">person</span>
                                 About Me
@@ -165,7 +165,7 @@ export const TeacherProfile = () => {
                             </div>
                         </div>
 
-                        <div className="bg-white dark:bg-background-dark p-6 md:p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <div className="bg-white dark:bg- p-6 md:p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                             <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
                                 <span className="material-symbols-outlined text-primary dark:text-white">psychology</span>
                                 Teaching Techniques
@@ -210,7 +210,7 @@ export const TeacherProfile = () => {
                             </div>
                         </div>
 
-                        <div className="bg-white dark:bg-background-dark p-6 md:p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <div className="bg-white dark:bg- p-6 md:p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                             <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                                 <span className="material-symbols-outlined text-primary dark:text-white">map</span>
                                 Teaching Location
@@ -229,7 +229,7 @@ export const TeacherProfile = () => {
                 </div>
             </main>
 
-            <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 flex gap-3 z-50">
+            <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-white dark:bg- border-t border-slate-200 dark:border-slate-800 flex gap-3 z-50">
                 <button className="flex-1 bg-slate-100 dark:bg-slate-800 py-3 rounded-lg font-bold flex items-center justify-center gap-2">
                     <span className="material-symbols-outlined">forum</span> WhatsApp
                 </button>

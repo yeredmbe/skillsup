@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export const Landing = () => {
     const [menuOpen, setMenuOpen] = useState(true);
     return (
-        <React.Fragment className="relative">
+        <div className="relative flex min-h-screen flex-col">
 
 
             <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6 lg:px-20 py-4">
@@ -29,10 +29,10 @@ export const Landing = () => {
 
                     {/* Desktop auth */}
                     <div className="hidden md:flex items-center gap-4">
-                        <Link to="/auth" className="text-sm font-bold px-4 py-2 hover:bg-slate-50 rounded-lg">
+                        <Link to="/signin" className="text-sm font-bold px-4 py-2 hover:bg-slate-50 rounded-lg">
                             Log In
                         </Link>
-                        <Link to="/auth" className="bg-primary text-white text-sm font-bold px-6 py-2.5 rounded-lg">
+                        <Link to="/signup" className="bg-primary text-white text-sm font-bold px-6 py-2.5 rounded-lg">
                             Sign Up
                         </Link>
                     </div>
@@ -50,7 +50,7 @@ export const Landing = () => {
                 </div>
             </nav>
 
-            <div className={`md:hidden fixed left-0 right-0 top-[10%] bg-white z-40 px-6 py-6 space-y-6 ${menuOpen ? "-translate-y-100 opacity-0" : "translate-y-0 opacity-100"} transition-all duration-500 `}>
+            <div className={`md:hidden fixed left-0 right-0 top-[7%] bg-white z-40 px-6 py-6 space-y-6 ${menuOpen ? "-translate-y-100 opacity-0" : "translate-y-0 opacity-100"} transition-all duration-500 `}>
 
                 <Link to="/teachers" className="block font-semibold" onClick={() => setMenuOpen(false)}>
                     Teachers
@@ -65,11 +65,11 @@ export const Landing = () => {
                 </Link>
 
                 <div className="pt-4 border-t space-y-2">
-                    <Link to="/auth" className="block text-center py-2 bg-slate-100 rounded-lg font-bold">
+                    <Link to="/signin" className="block text-center py-2 bg-slate-100 rounded-lg font-bold">
                         Log In
                     </Link>
 
-                    <Link to="/auth" className="block text-center py-2 bg-primary text-white rounded-lg font-bold">
+                    <Link to="/signup" className="block text-center py-2 bg-primary text-white rounded-lg font-bold">
                         Sign Up
                     </Link>
                 </div>
@@ -365,6 +365,6 @@ export const Landing = () => {
                 </div>
             </footer>
 
-        </React.Fragment>
+        </div>
     );
 };

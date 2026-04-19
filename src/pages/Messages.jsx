@@ -6,7 +6,7 @@ export const Messages = () => {
             
 <div className="flex h-screen w-full flex-col">
 
-<header className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 py-3 bg-white dark:bg-background-dark z-10 shrink-0">
+<header className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 py-3 bg-white dark:bg- z-10 shrink-0">
 <div className="flex items-center gap-8">
 <div className="flex items-center gap-2 text-primary dark:text-white">
 <div className="size-8 bg-primary rounded flex items-center justify-center">
@@ -33,7 +33,7 @@ export const Messages = () => {
 
 <main className="flex grow overflow-hidden">
 
-<aside className="w-full md:w-[380px] border-r border-slate-200 dark:border-slate-800 flex flex-col bg-white dark:bg-background-dark shrink-0">
+<aside className="w-full md:w-[380px] border-r border-slate-200 dark:border-slate-800 flex flex-col bg-white dark:bg- shrink-0">
 <div className="p-4 border-b border-slate-100 dark:border-slate-800">
 <div className="relative">
 <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
@@ -111,9 +111,9 @@ export const Messages = () => {
 </div>
 </aside>
 
-<section className="flex-1 flex flex-col bg-slate-50 dark:bg-background-dark/50 relative">
+<section className="flex-1 flex flex-col bg-slate-50 dark:bg-/50 relative">
 
-<header className="flex items-center justify-between px-6 py-4 bg-white dark:bg-background-dark border-b border-slate-200 dark:border-slate-800 shrink-0">
+<header className="flex items-center justify-between px-6 py-4 bg-white dark:bg- border-b border-slate-200 dark:border-slate-800 shrink-0">
 <div className="flex items-center gap-4">
 <div className="size-10 rounded-full bg-cover bg-center border border-slate-200" data-alt="Profile picture of Professor Aris" style={{ backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuADBl1OmCBPenS1K4zDkBPwXYZfjHwqysxBrfNzqZALsNcXMlg7Qo6onZFg4I-9z4QKUh01Q-amWlxNC71RoVT-0C5KJQiRNeH7s65zGzpInimGkSTcsWvVV4NV3sQcUmsnwaI5NZdAA471Bf8PcMO-fQ_lXBC2Yfax9u4D9gOI_jJmrmwaUjtwxzNQS8SfQLS59YJl9zJLuPGfODTylX4iWdDrBu_VGHkfiyOPwdsLNXYpcZ8oIpQvpZI9D4gYRuud-jSo3LLFcg')` }}></div>
 <div>
@@ -145,7 +145,7 @@ export const Messages = () => {
 <div className="flex gap-3 max-w-[80%]">
 <div className="size-8 rounded-full bg-cover bg-center shrink-0 mt-1" data-alt="Profile picture of Professor Aris" style={{ backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuBBufw8Xfvz_sNzG0QF1Ew-ZVatddP8S25YhuOcbhCGjN-HUxLu5lHnK4vJXywZ7hIemmzzMzVuthqRSZHFTsbmMrHAt6ADI8I5dNs4WlLUD3y13cFqSWtMPMB0POTSaI6bS_9bmFz-F9aQQTwG-HzN-hbLgrxc-OnT2ByLfO0HkGia3u9l9pb3IzyPL2ScuSXB6_RjZl35AEJ2EY9kuVB8xxR-YhPeu2zU98x0c-WVMq-kcJ9rLA9vnV9KZNkmA3XFR06byzUzig')` }}></div>
 <div className="flex flex-col gap-1">
-<div className="bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 px-4 py-3 rounded-xl rounded-tl-none shadow-sm">
+<div className="bg-white dark:bg- border border-slate-200 dark:border-slate-800 px-4 py-3 rounded-xl rounded-tl-none shadow-sm">
 <p className="text-sm text-slate-800 dark:text-slate-200 leading-relaxed">Hello! I've just reviewed the curriculum for module 4. Have you had a chance to look at the Python Basics assessment yet?</p>
 </div>
 <span className="text-[10px] text-slate-400 font-medium ml-1">10:30 AM</span>
@@ -168,7 +168,7 @@ export const Messages = () => {
 <div className="flex gap-3 max-w-[80%]">
 <div className="size-8 rounded-full bg-cover bg-center shrink-0 mt-1" data-alt="Profile picture of Professor Aris" style={{ backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuANczHEYEMy9-jbUDYe80G9mt_WmYAgccDs_CbUb4WOW3fTT5S_sHG1V-jyi3XqwswOIlHUs7a3norzGreQshoi-zlaOKjMghuxWdeFJzlrqBfPKUKB7iR8NUMmRfiKJHW9ed_3xVhtHAEGtBOlF1O1tfA442d4WTsN3EgQx610lJAWG8aUyrr9e_UDPZI62SQvyEAlWoA3NXKqghHAgi2hgaVyyngaxgrVAyZ9koFH0QB9zIBem4YDhgDdN38_Sk6vTRo_m2xLdQ')` }}></div>
 <div className="flex flex-col gap-1">
-<div className="bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 px-4 py-3 rounded-xl rounded-tl-none shadow-sm">
+<div className="bg-white dark:bg- border border-slate-200 dark:border-slate-800 px-4 py-3 rounded-xl rounded-tl-none shadow-sm">
 <p className="text-sm text-slate-800 dark:text-slate-200 leading-relaxed">The skill assessment is ready for review. I've added some notes to the specific lines you might find tricky.</p>
 </div>
 <span className="text-[10px] text-slate-400 font-medium ml-1">10:45 AM</span>
@@ -176,7 +176,7 @@ export const Messages = () => {
 </div>
 </div>
 
-<div className="p-6 bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 shrink-0">
+<div className="p-6 bg-white dark:bg- border-t border-slate-200 dark:border-slate-800 shrink-0">
 <div className="flex items-end gap-3 max-w-5xl mx-auto">
 <div className="flex gap-1 mb-1">
 <button className="p-2 text-slate-400 hover:text-primary transition-colors">

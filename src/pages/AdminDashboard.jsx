@@ -38,7 +38,7 @@ export const AdminDashboard = () => {
 </a>
 </nav>
 <div className="pt-6 border-t border-white/10">
-<a className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-all" href="/auth">
+<a className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-all" href="/signin">
 <span className="material-symbols-outlined" data-icon="logout">logout</span>
 <span className="text-[10px] uppercase tracking-[0.1em] font-bold">Logout</span>
 </a>
