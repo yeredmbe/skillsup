@@ -35,14 +35,14 @@ export const TeacherRegistration = () => {
             <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
                 <div className="flex h-full grow flex-col">
 
-                    <header className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-4 md:px-20 lg:px-40">
+                    <header className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4 md:px-20 lg:px-40">
                         <div className="flex items-center gap-3">
                             <div className="flex h-10 w-10 items-center justify-center rounded bg-primary text-white">
                                 <span className="material-symbols-outlined">school</span>
                             </div>
                             <h2 className="text-lg font-bold tracking-tight">Join our Faculty</h2>
                         </div>
-                        <button className="flex items-center justify-center rounded-lg h-10 bg-slate-100 dark:bg-slate-800 px-4 text-sm font-bold">
+                        <button className="flex items-center justify-center rounded-lg h-10 bg-slate-100 px-4 text-sm font-bold">
                             <span className="material-symbols-outlined mr-2">account_circle</span>
                             Profile
                         </button>
@@ -57,12 +57,12 @@ export const TeacherRegistration = () => {
                                         {stage === 0 ? (
                                             <>
                                                 <h1 className="text-3xl font-black tracking-tight md:text-4xl">Create Your Teacher Profile</h1>
-                                                <p className="mt-2 text-slate-500 dark:text-slate-400">Fill in your professional details to start teaching.</p>
+                                                <p className="mt-2 text-slate-500">Fill in your professional details to start teaching.</p>
                                             </>
                                         ) : (
                                             <>
                                                 <h1 className="text-3xl font-black tracking-tight md:text-4xl">Stage 2 of 2: Verification</h1>
-                                                <p className="mt-2 text-slate-500 dark:text-slate-400">Almost there! Complete your registration fee to unlock student inquiries.</p>
+                                                <p className="mt-2 text-slate-500">Almost there! Complete your registration fee to unlock student inquiries.</p>
                                             </>
                                         )}
                                     </div>
@@ -80,7 +80,7 @@ export const TeacherRegistration = () => {
                                         )}
                                     </div>
                                 </div>
-                                <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+                                <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
                                     <div
                                         className="progress-fill h-full bg-primary"
                                         style={{ width: stage === 0 ? '50%' : '90%' }}
@@ -100,9 +100,9 @@ export const TeacherRegistration = () => {
                                         <form className="space-y-12">
 
                                             <section>
-                                                <h2 className="mb-6 text-xl font-bold tracking-tight border-b border-slate-200 dark:border-slate-800 pb-2">Profile Photo</h2>
+                                                <h2 className="mb-6 text-xl font-bold tracking-tight border-b border-slate-200 pb-2">Profile Photo</h2>
                                                 <div className="flex flex-col items-center gap-6 sm:flex-row">
-                                                    <div className="relative flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800">
+                                                    <div className="relative flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-slate-300 bg-slate-50">
                                                         <span className="material-symbols-outlined text-4xl text-slate-400">add_a_photo</span>
                                                         <div className="absolute inset-0 bg-cover bg-center hidden" data-alt="A professional headshot of a teacher" style={{ backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuDzGS0-6_Cxe1xUVA2Q1qCjhDHUfhmrGUklQzBQS9nKZLuCG-L48wo00LeDI7lWkpowI4p36S39r3LFRzcSFfrsBra-SudYt20jTbGa6eFYUhXw3Kwfn2s2KkJqCBwHw8LHQ_o1RNwyWOFAE6DUgPt72iSSsDGD8Y1TEeK_jLNWvoJhQ1bXYi7abBXddiwgzbf55RaorHiE9xYvyhkA8hZ6iq_cAR-kEvGorwO1O-gaXwUbDe8MJQNuXe8T4YPMV3kSQuxhq1diJQ')` }}></div>
                                                     </div>
@@ -114,9 +114,9 @@ export const TeacherRegistration = () => {
                                             </section>
 
                                             <section>
-                                                <h2 className="mb-6 text-xl font-bold tracking-tight border-b border-slate-200 dark:border-slate-800 pb-2">Introductory Video</h2>
+                                                <h2 className="mb-6 text-xl font-bold tracking-tight border-b border-slate-200 pb-2">Introductory Video</h2>
                                                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 items-center">
-                                                    <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800">
+                                                    <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-lg border-2 border-dashed border-slate-300 bg-slate-50">
                                                         <div className="text-center flex flex-col items-center">
                                                             <span className="material-symbols-outlined text-4xl text-slate-400">videocam</span>
                                                             <p className="mt-2 text-xs text-slate-500">Video Preview Placeholder</p>
@@ -139,38 +139,38 @@ export const TeacherRegistration = () => {
                                             </section>
 
                                             <section className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                                                <h2 className="col-span-full text-xl font-bold tracking-tight border-b border-slate-200 dark:border-slate-800 pb-2">Personal Information</h2>
+                                                <h2 className="col-span-full text-xl font-bold tracking-tight border-b border-slate-200 pb-2">Personal Information</h2>
                                                 <div className="flex flex-col gap-2">
                                                     <label className="text-sm font-semibold">First Name</label>
-                                                    <input className="w-full rounded border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-primary" placeholder="e.g. Jane" type="text" />
+                                                    <input className="w-full rounded border-slate-300 focus:border-primary focus:ring-primary" placeholder="e.g. Jane" type="text" />
                                                 </div>
                                                 <div className="flex flex-col gap-2">
                                                     <label className="text-sm font-semibold">Last Name</label>
-                                                    <input className="w-full rounded border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-primary" placeholder="e.g. Doe" type="text" />
+                                                    <input className="w-full rounded border-slate-300 focus:border-primary focus:ring-primary" placeholder="e.g. Doe" type="text" />
                                                 </div>
                                                 <div className="flex flex-col gap-2">
                                                     <label className="text-sm font-semibold">Phone Number</label>
                                                     <div className="flex">
-                                                        <span className="inline-flex items-center rounded-l border border-r-0 border-slate-300 bg-slate-50 px-3 text-slate-500 dark:border-slate-700 dark:bg-slate-900">+1</span>
-                                                        <input className="w-full rounded-r border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-primary" placeholder="(555) 000-0000" type="tel" />
+                                                        <span className="inline-flex items-center rounded-l border border-r-0 border-slate-300 bg-slate-50 px-3 text-slate-500">+1</span>
+                                                        <input className="w-full rounded-r border-slate-300 focus:border-primary focus:ring-primary" placeholder="(555) 000-0000" type="tel" />
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col gap-2">
                                                     <label className="text-sm font-semibold">WhatsApp Link</label>
                                                     <div className="flex">
-                                                        <span className="inline-flex items-center rounded-l border border-r-0 border-slate-300 bg-slate-50 px-3 text-slate-500 dark:border-slate-700 dark:bg-slate-900">
+                                                        <span className="inline-flex items-center rounded-l border border-r-0 border-slate-300 bg-slate-50 px-3 text-slate-500">
                                                             <span className="material-symbols-outlined text-sm">link</span>
                                                         </span>
-                                                        <input className="w-full rounded-r border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-primary" placeholder="wa.me/number" type="url" />
+                                                        <input className="w-full rounded-r border-slate-300 focus:border-primary focus:ring-primary" placeholder="wa.me/number" type="url" />
                                                     </div>
                                                 </div>
                                             </section>
 
                                             <section className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                                                <h2 className="col-span-full text-xl font-bold tracking-tight border-b border-slate-200 dark:border-slate-800 pb-2">Academic &amp; Professional</h2>
+                                                <h2 className="col-span-full text-xl font-bold tracking-tight border-b border-slate-200 pb-2">Academic &amp; Professional</h2>
                                                 <div className="flex flex-col gap-2">
                                                     <label className="text-sm font-semibold">Last Diploma</label>
-                                                    <select className="w-full rounded border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-primary">
+                                                    <select className="w-full rounded border-slate-300 focus:border-primary focus:ring-primary">
                                                         <option>Bachelor's Degree</option>
                                                         <option>Master's Degree</option>
                                                         <option>PhD / Doctorate</option>
@@ -184,33 +184,33 @@ export const TeacherRegistration = () => {
                                                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
                                                             <span className="material-symbols-outlined text-sm">location_on</span>
                                                         </span>
-                                                        <input className="w-full rounded border-slate-300 pl-10 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-primary" data-location="New York City" placeholder="City, Country" type="text" />
+                                                        <input className="w-full rounded border-slate-300 pl-10 focus:border-primary focus:ring-primary" data-location="New York City" placeholder="City, Country" type="text" />
                                                     </div>
                                                 </div>
                                                 <div className="col-span-full flex flex-col gap-2">
                                                     <label className="text-sm font-semibold">About You (Description)</label>
-                                                    <textarea className="w-full rounded border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-primary" placeholder="Briefly describe your background and passion for teaching..." rows="4"></textarea>
+                                                    <textarea className="w-full rounded border-slate-300 focus:border-primary focus:ring-primary" placeholder="Briefly describe your background and passion for teaching..." rows="4"></textarea>
                                                 </div>
                                                 <div className="col-span-full flex flex-col gap-2">
                                                     <label className="text-sm font-semibold">Teaching Techniques</label>
-                                                    <textarea className="w-full rounded border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-primary" placeholder="Explain your methods (e.g., Socratic method, project-based learning...)" rows="3"></textarea>
+                                                    <textarea className="w-full rounded border-slate-300 focus:border-primary focus:ring-primary" placeholder="Explain your methods (e.g., Socratic method, project-based learning...)" rows="3"></textarea>
                                                 </div>
                                             </section>
 
                                             <section className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                                                <h2 className="col-span-full text-xl font-bold tracking-tight border-b border-slate-200 dark:border-slate-800 pb-2">Financials</h2>
+                                                <h2 className="col-span-full text-xl font-bold tracking-tight border-b border-slate-200 pb-2">Financials</h2>
                                                 <div className="flex flex-col gap-2">
                                                     <label className="text-sm font-semibold">Price per Month</label>
                                                     <div className="flex">
-                                                        <span className="inline-flex items-center rounded-l border border-r-0 border-slate-300 bg-slate-50 px-3 text-slate-500 dark:border-slate-700 dark:bg-slate-900">$</span>
-                                                        <input className="w-full rounded-r border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-primary" placeholder="200" type="number" />
+                                                        <span className="inline-flex items-center rounded-l border border-r-0 border-slate-300 bg-slate-50 px-3 text-slate-500">$</span>
+                                                        <input className="w-full rounded-r border-slate-300 focus:border-primary focus:ring-primary" placeholder="200" type="number" />
                                                     </div>
                                                     <p className="text-xs text-slate-500">Suggested: $150 - $400 depending on subject.</p>
                                                 </div>
                                             </section>
 
-                                            <div className="flex flex-col-reverse gap-4 border-t border-slate-200 dark:border-slate-800 pt-8 sm:flex-row sm:justify-between">
-                                                <button className="rounded-lg bg-slate-100 px-8 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300" type="button">Save Draft</button>
+                                            <div className="flex flex-col-reverse gap-4 border-t border-slate-200 pt-8 sm:flex-row sm:justify-between">
+                                                <button className="rounded-lg bg-slate-100 px-8 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-200" type="button">Save Draft</button>
                                                 <button
                                                     className="rounded-lg bg-primary px-12 py-3 text-sm font-bold text-white transition hover:opacity-90"
                                                     type="button"
@@ -229,15 +229,15 @@ export const TeacherRegistration = () => {
                                             <div className="lg:col-span-5 space-y-10">
                                                 <section>
                                                     <h3 className="text-3xl font-black mb-6 leading-tight">Unlock the full power of SkillsUp</h3>
-                                                    <p className="text-slate-600 dark:text-slate-400 mb-8 text-lg">Your one-time registration fee of 3000 XAF ensures we maintain a high-quality community of verified educators.</p>
+                                                    <p className="text-slate-600 mb-8 text-lg">Your one-time registration fee of 3000 XAF ensures we maintain a high-quality community of verified educators.</p>
                                                     <div className="space-y-6">
                                                         <div className="flex items-start gap-4">
                                                             <div className="mt-1 bg-primary text-white rounded-full p-1 flex items-center justify-center shrink-0">
                                                                 <span className="material-symbols-outlined text-sm">check</span>
                                                             </div>
                                                             <div>
-                                                                <h4 className="font-bold text-slate-900 dark:text-white">Priority Search Placement</h4>
-                                                                <p className="text-sm text-slate-600 dark:text-slate-400">Verified tutors appear 3x more often in student searches.</p>
+                                                                <h4 className="font-bold text-slate-900">Priority Search Placement</h4>
+                                                                <p className="text-sm text-slate-600">Verified tutors appear 3x more often in student searches.</p>
                                                             </div>
                                                         </div>
                                                         <div className="flex items-start gap-4">
@@ -245,8 +245,8 @@ export const TeacherRegistration = () => {
                                                                 <span className="material-symbols-outlined text-sm">check</span>
                                                             </div>
                                                             <div>
-                                                                <h4 className="font-bold text-slate-900 dark:text-white">Unlimited Direct Inquiries</h4>
-                                                                <p className="text-sm text-slate-600 dark:text-slate-400">Receive unlimited messages from parents and students without restrictions.</p>
+                                                                <h4 className="font-bold text-slate-900">Unlimited Direct Inquiries</h4>
+                                                                <p className="text-sm text-slate-600">Receive unlimited messages from parents and students without restrictions.</p>
                                                             </div>
                                                         </div>
                                                         <div className="flex items-start gap-4">
@@ -254,23 +254,23 @@ export const TeacherRegistration = () => {
                                                                 <span className="material-symbols-outlined text-sm">check</span>
                                                             </div>
                                                             <div>
-                                                                <h4 className="font-bold text-slate-900 dark:text-white">Verified Badge</h4>
-                                                                <p className="text-sm text-slate-600 dark:text-slate-400">Build instant trust with a professional verification badge on your profile.</p>
+                                                                <h4 className="font-bold text-slate-900">Verified Badge</h4>
+                                                                <p className="text-sm text-slate-600">Build instant trust with a professional verification badge on your profile.</p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </section>
 
-                                                <div className="pt-8 border-t border-slate-200 dark:border-slate-800">
+                                                <div className="pt-8 border-t border-slate-200">
                                                     <div className="flex items-center gap-2 mb-4">
                                                         <span className="material-symbols-outlined text-green-600">lock</span>
-                                                        <span className="text-sm font-bold text-slate-900 dark:text-white">Secure Encrypted Transaction</span>
+                                                        <span className="text-sm font-bold text-slate-900">Secure Encrypted Transaction</span>
                                                     </div>
                                                     <div className="flex flex-wrap gap-4 items-center">
-                                                        <div className="h-8 w-12 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center border border-slate-200 dark:border-slate-700">
+                                                        <div className="h-8 w-12 bg-slate-100 rounded flex items-center justify-center border border-slate-200">
                                                             <span className="text-[10px] font-black tracking-tighter">MTN</span>
                                                         </div>
-                                                        <div className="h-8 w-12 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center border border-slate-200 dark:border-slate-700">
+                                                        <div className="h-8 w-12 bg-slate-100 rounded flex items-center justify-center border border-slate-200">
                                                             <span className="text-[10px] font-black tracking-tighter">ORANGE</span>
                                                         </div>
                                                     </div>
@@ -279,9 +279,9 @@ export const TeacherRegistration = () => {
                                             </div>
 
                                             <div className="lg:col-span-7">
-                                                <div className="bg-white dark:bg-black rounded-xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden">
+                                                <div className="bg-white rounded-xl border border-slate-200 shadow-xl overflow-hidden">
 
-                                                    <div className="bg-slate-50 dark:bg-slate-900 p-6 border-b border-slate-200 dark:border-slate-800">
+                                                    <div className="bg-slate-50 p-6 border-b border-slate-200">
                                                         <h4 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-4">Verification Summary</h4>
                                                         <div className="flex justify-between items-center">
                                                             <span className="text-lg font-medium">One-time Registration Fee</span>
@@ -291,36 +291,36 @@ export const TeacherRegistration = () => {
 
                                                     <div className="p-8 space-y-6">
                                                         <div className="space-y-4">
-                                                            <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Select Mobile Money Provider</label>
+                                                            <label className="text-sm font-bold text-slate-700">Select Mobile Money Provider</label>
                                                             <div className="grid grid-cols-2 gap-4">
-                                                                <label className="relative flex flex-col items-center justify-center p-4 border-2 border-primary rounded-xl cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-900 transition-all bg-slate-50 dark:bg-slate-900">
+                                                                <label className="relative flex flex-col items-center justify-center p-4 border-2 border-primary rounded-xl cursor-pointer hover:bg-slate-50 transition-all bg-slate-50">
                                                                     <input defaultChecked className="sr-only" name="provider" type="radio" value="mtn" />
                                                                     <span className="material-symbols-outlined text-3xl mb-2">smartphone</span>
                                                                     <span className="font-bold text-sm">MTN MoMo</span>
                                                                     <div className="absolute top-2 right-2 h-4 w-4 rounded-full border-4 border-primary bg-primary"></div>
                                                                 </label>
-                                                                <label className="relative flex flex-col items-center justify-center p-4 border-2 border-slate-200 dark:border-slate-800 rounded-xl cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-900 transition-all">
+                                                                <label className="relative flex flex-col items-center justify-center p-4 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition-all">
                                                                     <input className="sr-only" name="provider" type="radio" value="orange" />
                                                                     <span className="material-symbols-outlined text-3xl mb-2">payments</span>
                                                                     <span className="font-bold text-sm">Orange Money</span>
-                                                                    <div className="absolute top-2 right-2 h-4 w-4 rounded-full border-2 border-slate-300 dark:border-slate-700"></div>
+                                                                    <div className="absolute top-2 right-2 h-4 w-4 rounded-full border-2 border-slate-300"></div>
                                                                 </label>
                                                             </div>
                                                         </div>
                                                         <div className="space-y-4">
                                                             <div className="space-y-2">
-                                                                <label className="text-sm font-bold text-slate-700 dark:text-slate-300" htmlFor="phone-number">Mobile Money Phone Number</label>
+                                                                <label className="text-sm font-bold text-slate-700" htmlFor="phone-number">Mobile Money Phone Number</label>
                                                                 <div className="relative">
                                                                     <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-500">
                                                                         <span className="text-sm font-bold">+237</span>
                                                                     </div>
-                                                                    <input className="w-full bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 rounded-lg py-3 pl-14 pr-4 focus:ring-primary focus:border-primary transition-all outline-none" id="phone-number" placeholder="6XX XXX XXX" type="tel" />
+                                                                    <input className="w-full bg-slate-50 border-slate-200 rounded-lg py-3 pl-14 pr-4 focus:ring-primary focus:border-primary transition-all outline-none" id="phone-number" placeholder="6XX XXX XXX" type="tel" />
                                                                 </div>
                                                                 <p className="text-[10px] text-slate-500">Enter the phone number associated with your mobile money account.</p>
                                                             </div>
                                                             <div className="space-y-2">
-                                                                <label className="text-sm font-bold text-slate-700 dark:text-slate-300" htmlFor="full-name">Account Holder Name</label>
-                                                                <input className="w-full bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 rounded-lg py-3 px-4 focus:ring-primary focus:border-primary transition-all outline-none" id="full-name" placeholder="John Doe" type="text" />
+                                                                <label className="text-sm font-bold text-slate-700" htmlFor="full-name">Account Holder Name</label>
+                                                                <input className="w-full bg-slate-50 border-slate-200 rounded-lg py-3 px-4 focus:ring-primary focus:border-primary transition-all outline-none" id="full-name" placeholder="John Doe" type="text" />
                                                             </div>
                                                         </div>
                                                         <div className="pt-4 space-y-4">
@@ -328,11 +328,11 @@ export const TeacherRegistration = () => {
                                                                 <span className="material-symbols-outlined text-xl">verified_user</span>
                                                                 Initiate Payment
                                                             </button>
-                                                            <button className="w-full bg-white dark:bg-transparent border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-bold py-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900 transition-all">
+                                                            <button className="w-full bg-white border border-slate-200 text-slate-600 font-bold py-4 rounded-lg hover:bg-slate-50 transition-all">
                                                                 Save &amp; Finish Later
                                                             </button>
                                                         </div>
-                                                        <div className="flex items-center gap-2 justify-center p-3 bg-slate-50 dark:bg-slate-900 rounded-lg">
+                                                        <div className="flex items-center gap-2 justify-center p-3 bg-slate-50 rounded-lg">
                                                             <span className="material-symbols-outlined text-slate-500 text-lg">info</span>
                                                             <p className="text-xs text-slate-500">You will receive a prompt on your phone to authorize the transaction.</p>
                                                         </div>
@@ -344,15 +344,15 @@ export const TeacherRegistration = () => {
                                             </div>
                                         </div>
 
-                                        <div className="flex flex-col-reverse gap-4 border-t border-slate-200 dark:border-slate-800 pt-8 mt-12 sm:flex-row sm:justify-between">
+                                        <div className="flex flex-col-reverse gap-4 border-t border-slate-200 pt-8 mt-12 sm:flex-row sm:justify-between">
                                             <button
-                                                className="rounded-lg bg-slate-100 px-8 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300"
+                                                className="rounded-lg bg-slate-100 px-8 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-200"
                                                 type="button"
                                                 onClick={() => goTo(0)}
                                             >
                                                 Back
                                             </button>
-                                            <button className="rounded-lg bg-slate-100 px-8 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300" type="button">Save Draft</button>
+                                            <button className="rounded-lg bg-slate-100 px-8 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-200" type="button">Save Draft</button>
                                         </div>
                                     </div>
 
@@ -362,7 +362,7 @@ export const TeacherRegistration = () => {
                         </div>
                     </main>
 
-                    <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-6 text-center text-xs text-slate-400">
+                    <footer className="border-t border-slate-200 bg-white px-6 py-6 text-center text-xs text-slate-400">
                         © 2024 Faculty Recruitment Portal. All rights reserved.
                     </footer>
                 </div>

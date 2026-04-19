@@ -4,15 +4,15 @@ export const SignUp = () => {
     return (
         <React.Fragment>
             <div className="bg-background text-on-background min-h-screen flex flex-col">
-                <header className="bg-white/80 dark:bg-black/80 backdrop-blur-md text-slate-900 dark:text-slate-50 font-inter tracking-tight docked full-width top-0 sticky shadow-sm dark:shadow-none flex justify-between items-center w-full px-8 py-4 max-w-full z-50">
-                    <div className="text-xl font-black text-slate-900 dark:text-slate-50">SkillsUp</div>
+                <header className="bg-white/80 backdrop-blur-md text-slate-900 font-inter tracking-tight docked full-width top-0 sticky shadow-sm flex justify-between items-center w-full px-8 py-4 max-w-full z-50">
+                    <div className="text-xl font-black text-slate-900">SkillsUp</div>
                     <nav className="hidden md:flex gap-8">
-                        <a className="text-slate-500 dark:text-slate-400 font-medium hover:text-black dark:hover:text-white transition-colors" href="#">Features</a>
-                        <a className="text-slate-500 dark:text-slate-400 font-medium hover:text-black dark:hover:text-white transition-colors" href="#">Pricing</a>
-                        <a className="text-slate-500 dark:text-slate-400 font-medium hover:text-black dark:hover:text-white transition-colors" href="#">Community</a>
+                        <a className="text-slate-500 font-medium hover:text-black transition-colors" href="#">Features</a>
+                        <a className="text-slate-500 font-medium hover:text-black transition-colors" href="#">Pricing</a>
+                        <a className="text-slate-500 font-medium hover:text-black transition-colors" href="#">Community</a>
                     </nav>
                     <div className="flex items-center gap-4">
-                        <a className="text-slate-900 dark:text-slate-50 font-medium text-sm hover:underline" href="#">Log In</a>
+                        <a className="text-slate-900 font-medium text-sm hover:underline" href="#">Log In</a>
                     </div>
                 </header>
                 <main className="flex-grow flex items-center justify-center p-8 md:p-12">
@@ -75,14 +75,14 @@ export const SignUp = () => {
                         </div>
                     </div>
                 </main>
-                <footer className="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 text-[10px] uppercase tracking-[0.1em] font-medium full-width border-t border-slate-100 dark:border-slate-900 shadow-none w-full px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div className="text-sm font-bold text-slate-900 dark:text-slate-50">SkillsUp</div>
+                <footer className="bg-slate-50 text-slate-900 text-[10px] uppercase tracking-[0.1em] font-medium full-width border-t border-slate-100 shadow-none w-full px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div className="text-sm font-bold text-slate-900">SkillsUp</div>
                     <div className="flex gap-8">
-                        <a className="text-slate-400 dark:text-slate-600 hover:text-slate-900 dark:hover:text-slate-100 transition-opacity duration-200" href="#">Privacy Policy</a>
-                        <a className="text-slate-400 dark:text-slate-600 hover:text-slate-900 dark:hover:text-slate-100 transition-opacity duration-200" href="#">Terms of Service</a>
-                        <a className="text-slate-400 dark:text-slate-600 hover:text-slate-900 dark:hover:text-slate-100 transition-opacity duration-200" href="#">Help Center</a>
+                        <a className="text-slate-400 hover:text-slate-900 transition-opacity duration-200" href="#">Privacy Policy</a>
+                        <a className="text-slate-400 hover:text-slate-900 transition-opacity duration-200" href="#">Terms of Service</a>
+                        <a className="text-slate-400 hover:text-slate-900 transition-opacity duration-200" href="#">Help Center</a>
                     </div>
-                    <div className="text-slate-400 dark:text-slate-600">© 2024 SkillsUp Editorial. All rights reserved.</div>
+                    <div className="text-slate-400">© 2024 SkillsUp Editorial. All rights reserved.</div>
                 </footer>
             </div>
         </React.Fragment>
