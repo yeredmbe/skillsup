@@ -4,34 +4,9 @@ import { Link } from 'react-router-dom';
 export const FindTeacher = () => {
     return (
         <React.Fragment>
+            <main className="max-w-[1440px] relative mx-auto flex flex-col lg:flex-row gap-8 p-6">
 
-
-            <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white px-6 py-3">
-                <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-8">
-                    <div className="flex items-center gap-8 flex-1">
-                        <Link to="/" className="flex items-center gap-2 text-primary">
-                            <span className="material-symbols-outlined text-3xl">school</span>
-                            <h1 className="text-xl font-bold tracking-tight">SkillsUp</h1>
-                        </Link>
-                        <div className="hidden md:flex flex-1 max-w-md">
-                            <div className="relative w-full">
-                                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-                                <input className="w-full pl-10 pr-4 py-2 bg-slate-100 border-none rounded-lg focus:ring-2 focus:ring-primary text-sm" placeholder="Search for subjects or teachers..." type="text" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <button className="px-4 py-2 text-sm font-bold bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors">Login</button>
-                        <button className="px-4 py-2 text-sm font-bold bg-primary text-white rounded-lg hover:opacity-90 transition-opacity">Sign Up</button>
-                    </div>
-                    {false && <div className="h-8 w-8 rounded-full bg-slate-200 overflow-hidden border border-slate-300">
-                        <img className="w-full h-full object-cover" data-alt="Small circular user avatar profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9is-6L86hh5LpjbToPLEChMpcdpS49bFL__oXQKBv2JFYsPH9jFtLrHvtKjAgvwB9EMr3VZ9Krqz2-G6gX-lhOYqwiKj4EYBgnl3OJj6V0EjzIAprRVZtirJT-VuqcesESxOTs2VUCniXJeV-DL8VIcqAdMET8O6dLyNS83Omd70gr7hBQmsXwDZISQHxZpSnEHnXC0aEhYBJODPqXbuOdzJGk_9ie25MdD9u53KPD8wmx5hTjiR819CAPRqnoTJPDwFWjrlD4A" />
-                    </div>}
-                </div>
-            </header>
-            <main className="max-w-[1440px] mx-auto flex flex-col lg:flex-row gap-8 p-6">
-
-                <aside className="w-full lg:w-64 flex-shrink-0 space-y-8">
+                <aside className="w-full self-start  md:sticky md:top-28 lg:w-64 flex-shrink-0 space-y-8">
                     <div>
                         <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
                             <span className="material-symbols-outlined">tune</span> Filters
@@ -106,7 +81,7 @@ export const FindTeacher = () => {
                     </div>
                 </aside>
 
-                <section className="flex-1">
+                <section className="flex-1 md:mt-20">
 
                     <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
                         <div>
@@ -285,22 +260,6 @@ export const FindTeacher = () => {
                     </div>
                 </section>
             </main>
-            <footer className="mt-20 border-t border-slate-200 py-12 bg-white">
-                <div className="max-w-[1440px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-                    <div className="flex items-center gap-2 text-primary">
-                        <span className="material-symbols-outlined text-2xl">school</span>
-                        <h1 className="text-lg font-bold tracking-tight">SkillsUp</h1>
-                    </div>
-                    <div className="flex gap-8 text-sm text-slate-500">
-                        <a className="hover:text-primary transition-colors" href="#">Privacy Policy</a>
-                        <a className="hover:text-primary transition-colors" href="#">Terms of Service</a>
-                        <a className="hover:text-primary transition-colors" href="#">Contact Support</a>
-                    </div>
-                    <div className="text-sm text-slate-400">
-                        © {new Date().getFullYear()} SkillsUp Marketplace. All rights reserved.
-                    </div>
-                </div>
-            </footer>
 
         </React.Fragment>
     );

@@ -5,30 +5,7 @@ export const TeacherProfile = () => {
     return (
         <React.Fragment>
 
-
-            <header className="sticky top-0 z-50 w-full bg-white border-b border-slate-200">
-                <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-8">
-                        <Link to="/" className="flex items-center gap-2 text-primary">
-                            <span className="material-symbols-outlined text-3xl">school</span>
-                            <h1 className="text-xl font-extrabold tracking-tight">SkillsUp</h1>
-                        </Link>
-                        <div className="hidden md:flex relative group">
-                            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-                            <input className="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-full w-64 focus:ring-2 focus:ring-primary text-sm" placeholder="Search for tutors..." type="text" />
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <button className="p-2 hover:bg-slate-100 rounded-full transition-colors">
-                            <span className="material-symbols-outlined">notifications</span>
-                        </button>
-                        <div className="h-8 w-8 rounded-full bg-slate-200 overflow-hidden border border-slate-300">
-                            <img className="w-full h-full object-cover" data-alt="Small circular user avatar profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9is-6L86hh5LpjbToPLEChMpcdpS49bFL__oXQKBv2JFYsPH9jFtLrHvtKjAgvwB9EMr3VZ9Krqz2-G6gX-lhOYqwiKj4EYBgnl3OJj6V0EjzIAprRVZtirJT-VuqcesESxOTs2VUCniXJeV-DL8VIcqAdMET8O6dLyNS83Omd70gr7hBQmsXwDZISQHxZpSnEHnXC0aEhYBJODPqXbuOdzJGk_9ie25MdD9u53KPD8wmx5hTjiR819CAPRqnoTJPDwFWjrlD4A" />
-                        </div>
-                    </div>
-                </div>
-            </header>
-            <main className="max-w-5xl mx-auto pb-12">
+            <main className="max-w-5xl mx-auto pb-12 mt-20">
 
                 <div className="bg-white shadow-sm overflow-hidden md:rounded-b-xl border-x border-b border-slate-200">
 
