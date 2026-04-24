@@ -10,11 +10,12 @@ i18n
   .init({
     fallbackLng: 'en',
     debug: true,
+    load: 'languageOnly', // uses 'fr' instead of 'fr-FR'
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },
     backend: {
-      loadPath: 'public/locales/{{lng}}/{{ns}}.json',
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
     }
   });
 
