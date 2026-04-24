@@ -9,10 +9,12 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',
+    lng: 'en',              // force default language
+    load: 'languageOnly',   // strips fr-FR → fr
+    supportedLngs: ['en', 'fr'],  // whitelist only these
     debug: true,
-    load: 'languageOnly', // uses 'fr' instead of 'fr-FR'
     interpolation: {
-      escapeValue: false, // not needed for react as it escapes by default
+      escapeValue: false,
     },
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
