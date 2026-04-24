@@ -112,47 +112,9 @@ export const Settings = () => {
                 </div>
             )}
 
-            <div className="relative flex min-h-screen w-full flex-col bg-white overflow-x-hidden">
+            <div className="relative flex min-h-screen w-full flex-col bg-white overflow-x-hidden mt-6">
                 <div className="layout-container flex h-full grow flex-col">
 
-                    {/* Header */}
-                    <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 px-6 md:px-10 py-3 bg-white sticky top-0 z-50">
-                        <div className="flex items-center gap-8">
-                            <div className="flex items-center gap-3 text-slate-800">
-                                <div className="size-8 bg-slate-800 text-white flex items-center justify-center rounded-lg">
-                                    <span className="material-symbols-outlined !text-xl">database</span>
-                                </div>
-                                <h2 className="text-slate-800 text-xl font-black leading-tight tracking-tight">SkillsUp</h2>
-                            </div>
-                            <label className="hidden md:flex flex-col min-w-40 h-10 max-w-64">
-                                <div className="flex w-full flex-1 items-stretch rounded-lg h-full">
-                                    <div className="text-slate-500 flex border-none bg-slate-100 items-center justify-center pl-4 rounded-l-lg">
-                                        <span className="material-symbols-outlined !text-xl">search</span>
-                                    </div>
-                                    <input
-                                        className="form-input flex w-full min-w-0 flex-1 border-none bg-slate-100 focus:ring-0 h-full placeholder:text-slate-400 px-4 rounded-r-lg text-sm"
-                                        placeholder="Search courses or settings"
-                                        value={search}
-                                        onChange={(e) => setSearch(e.target.value)}
-                                    />
-                                </div>
-                            </label>
-                        </div>
-                        <div className="flex flex-1 justify-end gap-4 md:gap-6">
-                            <div className="flex gap-2">
-                                <button className="flex items-center justify-center rounded-lg size-10 bg-slate-100 text-slate-800 hover:bg-slate-200 transition-colors">
-                                    <span className="material-symbols-outlined">notifications</span>
-                                </button>
-                                <button className="flex items-center justify-center rounded-lg size-10 bg-slate-100 text-slate-800 hover:bg-slate-200 transition-colors">
-                                    <span className="material-symbols-outlined">help_outline</span>
-                                </button>
-                            </div>
-                            <div
-                                className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-slate-200"
-                                style={{ backgroundImage: `url("${HEADER_AVATAR}")` }}
-                            />
-                        </div>
-                    </header>
 
                     <main className="flex flex-1 flex-col md:flex-row max-w-[1440px] mx-auto w-full">
 
