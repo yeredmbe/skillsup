@@ -9,13 +9,11 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',
-    lng: 'en',              // force default language
-    load: 'languageOnly',   // strips fr-FR → fr
-    supportedLngs: ['en', 'fr'],  // whitelist only these
     debug: true,
     interpolation: {
       escapeValue: false,
     },
+    load: 'languageOnly',
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     }

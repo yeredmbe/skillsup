@@ -8,13 +8,23 @@
  * @module
  */
 
+import type * as admin from "../admin.js";
+import type * as ratings from "../ratings.js";
+import type * as teachers from "../teachers.js";
+import type * as users from "../users.js";
+
 import type {
   ApiFromModules,
   FilterApi,
   FunctionReference,
 } from "convex/server";
 
-declare const fullApi: ApiFromModules<{}>;
+declare const fullApi: ApiFromModules<{
+  admin: typeof admin;
+  ratings: typeof ratings;
+  teachers: typeof teachers;
+  users: typeof users;
+}>;
 
 /**
  * A utility for referencing Convex functions in your app's public API.
