@@ -10,10 +10,11 @@ i18n
   .init({
     fallbackLng: 'en',
     debug: true,
+    supportedLngs: ['en', 'fr'],
+    nonExplicitSupportedLngs: true,
     interpolation: {
       escapeValue: false,
     },
-    load: 'languageOnly',
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     }
