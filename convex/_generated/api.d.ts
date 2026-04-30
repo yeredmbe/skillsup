@@ -9,6 +9,9 @@
  */
 
 import type * as admin from "../admin.js";
+import type * as cloudinary from "../cloudinary.js";
+import type * as notifications from "../notifications.js";
+import type * as payment from "../payment.js";
 import type * as ratings from "../ratings.js";
 import type * as teachers from "../teachers.js";
 import type * as users from "../users.js";
@@ -21,6 +24,9 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   admin: typeof admin;
+  cloudinary: typeof cloudinary;
+  notifications: typeof notifications;
+  payment: typeof payment;
   ratings: typeof ratings;
   teachers: typeof teachers;
   users: typeof users;

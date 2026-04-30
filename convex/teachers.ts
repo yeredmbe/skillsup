@@ -1,4 +1,4 @@
-import { v } from "convex/values";
+import { v, ConvexError } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
 // Step 1: teacher creates or updates their draft profile
@@ -10,10 +10,10 @@ export const upsertProfile = mutation({
         subjects: v.array(v.string()),
         monthlyRate: v.number(),
         bio: v.optional(v.string()),
-        profilePicture: v.optional(v.id("_storage")),
-        coverPicture: v.optional(v.id("_storage")),
-        diplomaPicture: v.optional(v.id("_storage")),
-        profileVideo: v.optional(v.id("_storage")),
+        profilePicture: v.optional(v.string()),
+        coverPicture: v.optional(v.string()),
+        diplomaPicture: v.optional(v.string()),
+        profileVideo: v.optional(v.string()),
     },
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
@@ -35,7 +35,7 @@ export const upsertProfile = mutation({
         if (existing) {
             // only allow edits on draft or rejected profiles
             if (existing.status === "pending" || existing.status === "approved") {
-                throw new Error("Cannot edit a profile that is pending or approved");
+                throw new ConvexError("Your profile is already pending or approved. You cannot edit it at this time.");
             }
             await ctx.db.patch(existing._id, { ...args, updatedAt: now });
             return existing._id;
@@ -87,6 +87,22 @@ export const submitForApproval = mutation({
             status: "pending",
             updatedAt: Date.now(),
         });
+
+        // Notify all admins
+        const admins = await ctx.db
+            .query("users")
+            .withIndex("by_role", (q) => q.eq("role", "admin"))
+            .collect();
+            
+        await Promise.all(admins.map(admin => 
+            ctx.db.insert("notifications", {
+                userId: admin._id,
+                title: "New Teacher Application",
+                message: `${user.name || "A user"} has submitted a new teacher application for review.`,
+                isRead: false,
+                createdAt: Date.now(),
+            })
+        ));
     },
 });
 
@@ -95,6 +111,7 @@ export const searchTeachers = query({
     args: {
         subject: v.optional(v.string()),
         maxRate: v.optional(v.number()),
+        minRating: v.optional(v.number()),
         sortByStars: v.optional(v.boolean()),
     },
     handler: async (ctx, args) => {
@@ -109,17 +126,26 @@ export const searchTeachers = query({
         if (args.maxRate !== undefined) {
             profiles = profiles.filter((p) => p.monthlyRate <= args.maxRate!);
         }
+        if (args.minRating !== undefined) {
+            profiles = profiles.filter((p) => {
+                const avgRating = p.ratingCount > 0 ? p.starCount / p.ratingCount : 0;
+                return avgRating >= args.minRating!;
+            });
+        }
         if (args.sortByStars) {
             profiles.sort((a, b) => b.starCount - a.starCount);
         }
 
-        // join with user name/email
-        return Promise.all(
+        // join with user name/email and ensure user role is strictly 'teacher'
+        const results = await Promise.all(
             profiles.map(async (p) => {
                 const user = await ctx.db.get(p.userId);
-                return { ...p, userName: user?.name, userEmail: user?.email };
+                if (!user || user.role !== "teacher") return null;
+                return { ...p, userName: user.name, userEmail: user.email };
             })
         );
+        
+        return results.filter((p) => p !== null);
     },
 });
 
