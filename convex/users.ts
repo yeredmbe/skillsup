@@ -1,8 +1,8 @@
 import { v } from "convex/values";
-import { query, internalMutation } from "./_generated/server";
+import { query, mutation, internalQuery } from "./_generated/server";
 
 // Called from Clerk webhook or on first login to sync the user
-export const upsertUser = internalMutation({
+export const upsertUser = mutation({
     args: {
         clerkId: v.string(),
         email: v.string(),
@@ -31,6 +31,16 @@ export const upsertUser = internalMutation({
             isBanned: false,
             createdAt: Date.now(),
         });
+    },
+});
+
+export const getUserByClerkId = internalQuery({
+    args: { clerkId: v.string() },
+    handler: async (ctx, args) => {
+        return await ctx.db
+            .query("users")
+            .withIndex("by_clerkId", (q) => q.eq("clerkId", args.clerkId))
+            .unique();
     },
 });
 

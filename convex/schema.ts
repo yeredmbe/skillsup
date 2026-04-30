@@ -22,11 +22,11 @@ export default defineSchema({
         lastDiploma: v.string(),
         subjects: v.array(v.string()),
         monthlyRate: v.number(),
-        // Convex storage IDs for uploaded files
-        profilePicture: v.optional(v.id("_storage")),
-        coverPicture: v.optional(v.id("_storage")),
-        diplomaPicture: v.optional(v.id("_storage")),
-        profileVideo: v.optional(v.id("_storage")),
+        // Cloudinary URLs for uploaded files
+        profilePicture: v.optional(v.string()),
+        coverPicture: v.optional(v.string()),
+        diplomaPicture: v.optional(v.string()),
+        profileVideo: v.optional(v.string()),
         bio: v.optional(v.string()),
         status: v.union(
             v.literal("draft"),     // filling out form
@@ -71,4 +71,13 @@ export default defineSchema({
     })
         .index("by_userId", ["userId"])
         .index("by_stripeSession", ["stripeSessionId"]),
+
+    // ─── system notifications ────────────────────────────────────
+    notifications: defineTable({
+        userId: v.id("users"),
+        title: v.string(),
+        message: v.string(),
+        isRead: v.boolean(),
+        createdAt: v.number(),
+    }).index("by_userId", ["userId"]),
 });

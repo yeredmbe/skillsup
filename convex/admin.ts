@@ -47,6 +47,15 @@ export const approveTeacher = mutation({
 
         // promote user role to teacher
         await ctx.db.patch(profile.userId, { role: "teacher" });
+
+        // push notification
+        await ctx.db.insert("notifications", {
+            userId: profile.userId,
+            title: "Profile Approved!",
+            message: "Your teacher profile has been approved! You are now visible to students on the platform.",
+            isRead: false,
+            createdAt: Date.now(),
+        });
     },
 });
 
@@ -63,23 +72,54 @@ export const rejectTeacher = mutation({
             rejectionReason: args.reason,
             updatedAt: Date.now(),
         });
+
+        const profile = await ctx.db.get(args.profileId);
+        if (profile) {
+            await ctx.db.insert("notifications", {
+                userId: profile.userId,
+                title: "Profile Update Required",
+                message: `Your application requires changes before approval. Notes: ${args.reason}`,
+                isRead: false,
+                createdAt: Date.now(),
+            });
+        }
     },
 });
 
-// List all users (guests + teachers)
 export const listUsers = query({
     args: {
         role: v.optional(v.union(v.literal("guest"), v.literal("teacher"), v.literal("admin"))),
     },
     handler: async (ctx, args) => {
-        await requireAdmin(ctx);
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) return [];
+        
+        const user = await ctx.db
+            .query("users")
+            .withIndex("by_clerkId", (q: any) => q.eq("clerkId", identity.subject))
+            .unique();
+            
+        if (!user || user.role !== "admin") return [];
+
+        let users;
         if (args.role) {
-            return ctx.db
+            users = await ctx.db
                 .query("users")
                 .withIndex("by_role", (q) => q.eq("role", args.role!))
                 .collect();
+        } else {
+            users = await ctx.db.query("users").collect();
         }
-        return ctx.db.query("users").collect();
+
+        return Promise.all(
+            users.map(async (u) => {
+                const profile = await ctx.db
+                    .query("teacherProfiles")
+                    .withIndex("by_userId", (q) => q.eq("userId", u._id))
+                    .unique();
+                return { ...u, profile };
+            })
+        );
     },
 });
 
@@ -105,4 +145,35 @@ export const setUserRole = mutation({
         await requireAdmin(ctx);
         await ctx.db.patch(args.userId, { role: args.role });
     },
+});
+
+// Fetch a teacher profile regardless of its status for admin review
+export const adminGetTeacherProfile = query({
+    args: { profileId: v.id("teacherProfiles") },
+    handler: async (ctx, args) => {
+        await requireAdmin(ctx);
+        const profile = await ctx.db.get(args.profileId);
+        if (!profile) return null;
+        
+        const user = await ctx.db.get(profile.userId);
+        return { ...profile, userName: user?.name, userEmail: user?.email };
+    },
+});
+
+// Fetch total revenue from all completed payments
+export const getTotalRevenue = query({
+    handler: async (ctx) => {
+        try {
+            await requireAdmin(ctx);
+        } catch (e) {
+            return 0;
+        }
+
+        const payments = await ctx.db
+            .query("payments")
+            .filter((q) => q.eq(q.field("status"), "completed"))
+            .collect();
+        
+        return payments.reduce((acc, curr) => acc + curr.amount, 0);
+    }
 });

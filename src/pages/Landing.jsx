@@ -1,10 +1,72 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
+import { useQuery } from 'convex/react';
+import { api } from '../../convex/_generated/api';
 
 export const Landing = () => {
     const { t } = useTranslation();
+    const scrollContainerRef = useRef(null);
+    const topTeachers = useQuery(api.teachers.searchTeachers, { sortByStars: true }) || [];
+
+    const dummyTeachers = [
+        {
+            isDummy: true,
+            dummyImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuCuZ6WKQryFRa241nUU48bqH9KAXwp34ru-BYB7XSyu0g_0YkbGNIdD5OcWipBgh9pjOXb7ADp5zV5nxBJtWNLLoLt0QAAZFPC0_MRygJiU31jBebBDE7pdgrB-Rsw5Nmc1MMtzfH3sujhNc3BrqgiCfid9yrZmhZwpf2Pgjpdt-PN0UgHlGYZc-ICyPnWg6_OV5nqvYrMJ6zFfWldfCZxhXjzHxw2otvi_gq_xhR32y6dJsvEZb6K-TNjtgFpC-tw1CC9iU07l7Q",
+            dummyRating: "4.9",
+            dummyName: "Dr. Elena Rodriguez",
+            dummySubject: t('landing.advancedMath'),
+            dummyRate: 45,
+            dummyTags: [t('landing.calculus'), t('landing.satPrep')],
+            dummyQuote: t('landing.elenaQuote')
+        },
+        {
+            isDummy: true,
+            dummyImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuBIce5Waypkfvg8SHcNB7RIDfetKr6oTd1oeql5zY4u6Dlrnhqas_xsc11V9liTfG99_1r3Z6gXksHKU9YE2rmIsnae8leZREAK-23BQxciC2ZUNAg1zbzNNkcG2xpFvZFOR5-SlmxzENzN9-4ZkG9UosXitwWFToDtUllYHZUIVTHm3R2MFI8lVGx3Dgf2fpCLlonJWMyngLZXT9UJZqk8xSnF58Uu9_HmXz0vkCQImAqJ7TdXip2btJd5HIBe8Sw7K68Tk3gI9w",
+            dummyRating: "5.0",
+            dummyName: "James Wilson",
+            dummySubject: t('landing.pianoMusic'),
+            dummyRate: 60,
+            dummyTags: [t('landing.classical'), t('landing.beginners')],
+            dummyQuote: t('landing.jamesQuote')
+        },
+        {
+            isDummy: true,
+            dummyImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuBy1PINSEYl6bm3T9uHYTMTx7f3nNAhrNZh0w61ub2Lu1d_Ya-r4NSV1VxmAyDfaUT5pNrYbOCNjoellUS9GYoIC_oFixPY6g4FZ1a0TraS6rGMSSeiDXg6v7IR81wIg4lOB-fgSG8rsZFPQIh4DJ1vu9cfuBKEsRUgrYGHTvMGDpukdTsHkxnsWb89juDIsFGld6zVDNHxU7p4kZwPPSUrRRFobt4xlu7QJNpERV6t1UxWtLFcDr4miU6EtOrwpeys4947kyaGyg",
+            dummyRating: "4.8",
+            dummyName: "Sarah Jenkins",
+            dummySubject: t('landing.creativeWriting'),
+            dummyRate: 40,
+            dummyTags: [t('landing.english'), t('landing.essays')],
+            dummyQuote: t('landing.sarahQuote')
+        },
+        {
+            isDummy: true,
+            dummyImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuBc3T27sNY2O7f0MKI4drAivpkZkiHpfXHJCqJBIFwYeuDSy7FwBZew39npJQDlWKvN4m2fg05U6vjfeA0vVtfI4GfaoMCBaEIdKn4lKbsU4UBKbg35NBevUYWcZQHD_jV0owp8YtHXDTsX-JE1FVg25W_AwavMlwtpjAq62vLDKs3Af1J81_-mgri18Dbv17hDP-_yhmyLs3Ptlj6_i7gxtxNz7qXMTRBufDYHtlWx9cKZRIU3xnt1dxFZ5Hx1EbHdBDNj4JQXZg",
+            dummyRating: "4.7",
+            dummyName: "Michael Chen",
+            dummySubject: t('landing.computerScience'),
+            dummyRate: 55,
+            dummyTags: [t('landing.python'), t('landing.algorithms')],
+            dummyQuote: t('landing.michaelQuote')
+        }
+    ];
+
+    const displayTeachers = topTeachers.length > 0 ? topTeachers.slice(0, 8) : dummyTeachers;
+
+    const scrollLeft = () => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollBy({ left: -340, behavior: 'smooth' });
+        }
+    };
+    
+    const scrollRight = () => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollBy({ left: 340, behavior: 'smooth' });
+        }
+    };
+
     return (
         <div className="relative flex min-h-screen flex-col mt-4">
 
@@ -112,116 +174,56 @@ export const Landing = () => {
                             <p className="text-slate-500 mt-2">{t('landing.highlyQualified')}</p>
                         </div>
                         <div className="flex gap-3">
-                            <button className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors">
+                            <button onClick={scrollLeft} className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors">
                                 <span className="material-symbols-outlined">chevron_left</span>
                             </button>
-                            <button className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors">
+                            <button onClick={scrollRight} className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors">
                                 <span className="material-symbols-outlined">chevron_right</span>
                             </button>
                         </div>
                     </div>
 
-                    <div className="flex gap-6 overflow-x-auto pb-8 snap-x no-scrollbar">
-
-                        <div className="min-w-[320px] snap-start bg-white rounded-2xl border border-slate-100 p-5 group hover:border-primary transition-all shadow-sm">
-                            <div className="relative mb-4">
-                                <img className="w-full aspect-[4/3] object-cover rounded-xl" data-alt="Portrait of a mathematics teacher" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuZ6WKQryFRa241nUU48bqH9KAXwp34ru-BYB7XSyu0g_0YkbGNIdD5OcWipBgh9pjOXb7ADp5zV5nxBJtWNLLoLt0QAAZFPC0_MRygJiU31jBebBDE7pdgrB-Rsw5Nmc1MMtzfH3sujhNc3BrqgiCfid9yrZmhZwpf2Pgjpdt-PN0UgHlGYZc-ICyPnWg6_OV5nqvYrMJ6zFfWldfCZxhXjzHxw2otvi_gq_xhR32y6dJsvEZb6K-TNjtgFpC-tw1CC9iU07l7Q" />
-                                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1">
-                                    <span className="material-symbols-outlined text-yellow-500 text-sm fill-current">star</span>
-                                    <span className="text-xs font-bold">4.9</span>
-                                </div>
-                            </div>
-                            <div className="space-y-3">
-                                <div className="flex justify-between items-start">
-                                    <div>
-                                        <h4 className="font-bold text-lg">Dr. Elena Rodriguez</h4>
-                                        <p className="text-sm text-slate-500">{t('landing.advancedMath')}</p>
+                    <div ref={scrollContainerRef} className="flex gap-6 overflow-x-auto pb-8 snap-x no-scrollbar scroll-smooth">
+                        {displayTeachers.map((teacher, index) => {
+                            const isDummy = teacher.isDummy;
+                            const rating = teacher.ratingCount ? (teacher.starCount / teacher.ratingCount).toFixed(1) : teacher.dummyRating || 'New';
+                            
+                            return (
+                                <div key={teacher._id || index} className="min-w-[320px] snap-start bg-white rounded-2xl border border-slate-100 p-5 group hover:border-primary transition-all shadow-sm">
+                                    <div className="relative mb-4">
+                                        <img className="w-full aspect-[4/3] object-cover rounded-xl" alt="Teacher Portrait" src={teacher.profilePicture || teacher.dummyImage || "https://lh3.googleusercontent.com/aida-public/AB6AXuCuZ6WKQryFRa241nUU48bqH9KAXwp34ru-BYB7XSyu0g_0YkbGNIdD5OcWipBgh9pjOXb7ADp5zV5nxBJtWNLLoLt0QAAZFPC0_MRygJiU31jBebBDE7pdgrB-Rsw5Nmc1MMtzfH3sujhNc3BrqgiCfid9yrZmhZwpf2Pgjpdt-PN0UgHlGYZc-ICyPnWg6_OV5nqvYrMJ6zFfWldfCZxhXjzHxw2otvi_gq_xhR32y6dJsvEZb6K-TNjtgFpC-tw1CC9iU07l7Q"} />
+                                        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1">
+                                            <span className="material-symbols-outlined text-yellow-500 text-sm fill-current">star</span>
+                                            <span className="text-xs font-bold">{rating}</span>
+                                        </div>
                                     </div>
-                                    <p className="font-black text-primary">$45/hr</p>
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                    <span className="px-2 py-1 bg-slate-100 text-[10px] font-bold rounded uppercase">{t('landing.calculus')}</span>
-                                    <span className="px-2 py-1 bg-slate-100 text-[10px] font-bold rounded uppercase">{t('landing.satPrep')}</span>
-                                </div>
-                                <p className="text-sm text-slate-600 line-clamp-2 italic">{t('landing.elenaQuote')}</p>
-                                <Link to="/profile/1" className="block w-full py-3 bg-slate-100 group-hover:bg-primary group-hover:text-white rounded-xl text-sm font-bold transition-colors mt-2 text-center">{t('landing.viewProfile')}</Link>
-                            </div>
-                        </div>
-
-                        <div className="min-w-[320px] snap-start bg-white rounded-2xl border border-slate-100 p-5 group hover:border-primary transition-all shadow-sm">
-                            <div className="relative mb-4">
-                                <img className="w-full aspect-[4/3] object-cover rounded-xl" data-alt="Portrait of a music teacher with piano" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIce5Waypkfvg8SHcNB7RIDfetKr6oTd1oeql5zY4u6Dlrnhqas_xsc11V9liTfG99_1r3Z6gXksHKU9YE2rmIsnae8leZREAK-23BQxciC2ZUNAg1zbzNNkcG2xpFvZFOR5-SlmxzENzN9-4ZkG9UosXitwWFToDtUllYHZUIVTHm3R2MFI8lVGx3Dgf2fpCLlonJWMyngLZXT9UJZqk8xSnF58Uu9_HmXz0vkCQImAqJ7TdXip2btJd5HIBe8Sw7K68Tk3gI9w" />
-                                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1">
-                                    <span className="material-symbols-outlined text-yellow-500 text-sm fill-current">star</span>
-                                    <span className="text-xs font-bold">5.0</span>
-                                </div>
-                            </div>
-                            <div className="space-y-3">
-                                <div className="flex justify-between items-start">
-                                    <div>
-                                        <h4 className="font-bold text-lg">James Wilson</h4>
-                                        <p className="text-sm text-slate-500">{t('landing.pianoMusic')}</p>
+                                    <div className="space-y-3">
+                                        <div className="flex justify-between items-start">
+                                            <div>
+                                                <h4 className="font-bold text-lg">{teacher.userName || teacher.dummyName}</h4>
+                                                <p className="text-sm text-slate-500 line-clamp-1">{teacher.subjects?.join(', ') || teacher.dummySubject}</p>
+                                            </div>
+                                            <p className="font-black text-primary">${teacher.monthlyRate || teacher.dummyRate}/hr</p>
+                                        </div>
+                                        <div className="flex flex-wrap gap-2">
+                                            {(teacher.subjects || teacher.dummyTags).slice(0, 2).map((sub, i) => (
+                                                <span key={i} className="px-2 py-1 bg-slate-100 text-[10px] font-bold rounded uppercase">{sub}</span>
+                                            ))}
+                                        </div>
+                                        <p className="text-sm text-slate-600 line-clamp-2 italic">{teacher.bio || teacher.dummyQuote}</p>
+                                        {isDummy ? (
+                                            <button disabled className="block w-full py-3 bg-slate-50 text-slate-400 rounded-xl text-sm font-bold mt-2 text-center cursor-not-allowed">
+                                                {t('landing.viewProfile')}
+                                            </button>
+                                        ) : (
+                                            <Link to={`/profile/${teacher._id}`} className="block w-full py-3 bg-slate-100 group-hover:bg-primary group-hover:text-white rounded-xl text-sm font-bold transition-colors mt-2 text-center">
+                                                {t('landing.viewProfile')}
+                                            </Link>
+                                        )}
                                     </div>
-                                    <p className="font-black text-primary">$60/hr</p>
                                 </div>
-                                <div className="flex flex-wrap gap-2">
-                                    <span className="px-2 py-1 bg-slate-100 text-[10px] font-bold rounded uppercase">{t('landing.classical')}</span>
-                                    <span className="px-2 py-1 bg-slate-100 text-[10px] font-bold rounded uppercase">{t('landing.beginners')}</span>
-                                </div>
-                                <p className="text-sm text-slate-600 line-clamp-2 italic">{t('landing.jamesQuote')}</p>
-                                <Link to="/profile/1" className="block text-center w-full py-3 bg-slate-100 group-hover:bg-primary group-hover:text-white rounded-xl text-sm font-bold transition-colors mt-2">{t('landing.viewProfile')}</Link>
-                            </div>
-                        </div>
-
-                        <div className="min-w-[320px] snap-start bg-white rounded-2xl border border-slate-100 p-5 group hover:border-primary transition-all shadow-sm">
-                            <div className="relative mb-4">
-                                <img className="w-full aspect-[4/3] object-cover rounded-xl" data-alt="Portrait of a language teacher" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy1PINSEYl6bm3T9uHYTMTx7f3nNAhrNZh0w61ub2Lu1d_Ya-r4NSV1VxmAyDfaUT5pNrYbOCNjoellUS9GYoIC_oFixPY6g4FZ1a0TraS6rGMSSeiDXg6v7IR81wIg4lOB-fgSG8rsZFPQIh4DJ1vu9cfuBKEsRUgrYGHTvMGDpukdTsHkxnsWb89juDIsFGld6zVDNHxU7p4kZwPPSUrRRFobt4xlu7QJNpERV6t1UxWtLFcDr4miU6EtOrwpeys4947kyaGyg" />
-                                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1">
-                                    <span className="material-symbols-outlined text-yellow-500 text-sm fill-current">star</span>
-                                    <span className="text-xs font-bold">4.8</span>
-                                </div>
-                            </div>
-                            <div className="space-y-3">
-                                <div className="flex justify-between items-start">
-                                    <div>
-                                        <h4 className="font-bold text-lg">Sarah Jenkins</h4>
-                                        <p className="text-sm text-slate-500">{t('landing.creativeWriting')}</p>
-                                    </div>
-                                    <p className="font-black text-primary">$40/hr</p>
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                    <span className="px-2 py-1 bg-slate-100 text-[10px] font-bold rounded uppercase">{t('landing.english')}</span>
-                                    <span className="px-2 py-1 bg-slate-100 text-[10px] font-bold rounded uppercase">{t('landing.essays')}</span>
-                                </div>
-                                <p className="text-sm text-slate-600 line-clamp-2 italic">{t('landing.sarahQuote')}</p>
-                                <Link to="/profile/1" className="block text-center w-full py-3 bg-slate-100 group-hover:bg-primary group-hover:text-white rounded-xl text-sm font-bold transition-colors mt-2">{t('landing.viewProfile')}</Link>
-                            </div>
-                        </div>
-
-                        <div className="min-w-[320px] snap-start bg-white rounded-2xl border border-slate-100 p-5 group hover:border-primary transition-all shadow-sm">
-                            <div className="relative mb-4">
-                                <img className="w-full aspect-[4/3] object-cover rounded-xl" data-alt="Portrait of a computer science teacher" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc3T27sNY2O7f0MKI4drAivpkZkiHpfXHJCqJBIFwYeuDSy7FwBZew39npJQDlWKvN4m2fg05U6vjfeA0vVtfI4GfaoMCBaEIdKn4lKbsU4UBKbg35NBevUYWcZQHD_jV0owp8YtHXDTsX-JE1FVg25W_AwavMlwtpjAq62vLDKs3Af1J81_-mgri18Dbv17hDP-_yhmyLs3Ptlj6_i7gxtxNz7qXMTRBufDYHtlWx9cKZRIU3xnt1dxFZ5Hx1EbHdBDNj4JQXZg" />
-                                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1">
-                                    <span className="material-symbols-outlined text-yellow-500 text-sm fill-current">star</span>
-                                    <span className="text-xs font-bold">4.7</span>
-                                </div>
-                            </div>
-                            <div className="space-y-3">
-                                <div className="flex justify-between items-start">
-                                    <div>
-                                        <h4 className="font-bold text-lg">Michael Chen</h4>
-                                        <p className="text-sm text-slate-500">{t('landing.computerScience')}</p>
-                                    </div>
-                                    <p className="font-black text-primary">$55/hr</p>
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                    <span className="px-2 py-1 bg-slate-100 text-[10px] font-bold rounded uppercase">{t('landing.python')}</span>
-                                    <span className="px-2 py-1 bg-slate-100 text-[10px] font-bold rounded uppercase">{t('landing.algorithms')}</span>
-                                </div>
-                                <p className="text-sm text-slate-600 line-clamp-2 italic">{t('landing.michaelQuote')}</p>
-                                <Link to="/profile/1" className="block text-center w-full py-3 bg-slate-100 group-hover:bg-primary group-hover:text-white rounded-xl text-sm font-bold transition-colors mt-2">{t('landing.viewProfile')}</Link>
-                            </div>
-                        </div>
+                            );
+                        })}
                     </div>
                 </div>
             </section>
