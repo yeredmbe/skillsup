@@ -11,6 +11,7 @@ i18n
     fallbackLng: 'en',
     debug: true,
     supportedLngs: ['en', 'fr'],
+    nonExplicitSupportedLngs: true,
     load: 'languageOnly',
     interpolation: {
       escapeValue: false,
