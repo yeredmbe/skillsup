@@ -23,7 +23,7 @@ export const upsertUser = mutation({
             return existing._id;
         }
 
-        return await ctx.db.insert("users", {
+        const newUserId = await ctx.db.insert("users", {
             clerkId: args.clerkId,
             email: args.email,
             name: args.name,
@@ -31,6 +31,17 @@ export const upsertUser = mutation({
             isBanned: false,
             createdAt: Date.now(),
         });
+
+        // Welcome Notification
+        await ctx.db.insert("notifications", {
+            userId: newUserId,
+            title: "Welcome to SkillsUp! 🎉",
+            message: `Hi ${args.name.split(' ')[0] || "there"}, welcome to SkillsUp! We're thrilled to have you. Start exploring subjects and finding the best tutors to level up your skills today.`,
+            isRead: false,
+            createdAt: Date.now(),
+        });
+
+        return newUserId;
     },
 });
 

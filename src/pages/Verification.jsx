@@ -12,6 +12,7 @@ export const TeacherRegistration = () => {
     const [stage, setStage] = useState(0);
     const [animating, setAnimating] = useState(false);
     const trackRef = useRef(null);
+    const [isSelected, setIsSelected] = useState(null);
 
     // Convex Mutations and Actions
     const upsertProfile = useMutation(api.teachers.upsertProfile);
@@ -445,13 +446,13 @@ export const TeacherRegistration = () => {
                                                         <div className="space-y-4">
                                                             <label className="text-sm font-bold text-slate-700">{t('verification.selectProvider')}</label>
                                                             <div className="grid grid-cols-2 gap-4">
-                                                                <label className="relative flex flex-col items-center justify-center p-4 border-2 border-primary rounded-xl cursor-pointer hover:bg-slate-50 transition-all bg-slate-50">
+                                                                <label onClick={() => setIsSelected("MTN")} className={`relative flex flex-col items-center justify-center p-4 border-2 ${isSelected === "MTN" && "border-primary"} rounded-xl cursor-pointer hover:bg-slate-50 transition-all bg-slate-50`}>
                                                                     <input defaultChecked className="sr-only" name="provider" type="radio" value="mtn" />
                                                                     <span className="material-symbols-outlined text-3xl mb-2">smartphone</span>
                                                                     <span className="font-bold text-sm">{t('verification.momo')}</span>
                                                                     <div className="absolute top-2 right-2 h-4 w-4 rounded-full border-4 border-primary bg-primary"></div>
                                                                 </label>
-                                                                <label className="relative flex flex-col items-center justify-center p-4 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition-all">
+                                                                <label onClick={() => setIsSelected("ORANGE")} className={`relative flex flex-col items-center justify-center p-4 border-2 ${isSelected === "ORANGE" && "border-primary"} rounded-xl cursor-pointer hover:bg-slate-50 transition-all bg-slate-50`}>
                                                                     <input className="sr-only" name="provider" type="radio" value="orange" />
                                                                     <span className="material-symbols-outlined text-3xl mb-2">payments</span>
                                                                     <span className="font-bold text-sm">{t('verification.orangeMoney')}</span>
@@ -507,10 +508,6 @@ export const TeacherRegistration = () => {
 
                         </div>
                     </main>
-                    {/* 
-                    <footer className="border-t border-slate-200 bg-white px-6 py-6 text-center text-xs text-slate-400">
-                        {t('verification.footer')}
-                    </footer> */}
                 </div>
             </div>
         </React.Fragment>
