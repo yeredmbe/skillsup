@@ -12,7 +12,7 @@ export const uploadMedia = action({
         cloudinary.config({
             cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
             api_key: process.env.CLOUDINARY_API_KEY,
-            api_secret: process.env.CLOUDINARY_API_SECRETE, // misspelled as SECRETE in .env.local
+            api_secret: process.env.CLOUDINARY_API_SECRET,
         });
 
         try {
@@ -20,9 +20,9 @@ export const uploadMedia = action({
                 resource_type: args.resourceType,
             });
             return uploadResponse.secure_url;
-        } catch (error) {
+        } catch (error: any) {
             console.error("Cloudinary upload error:", error);
-            throw new Error("Failed to upload to Cloudinary");
+            throw new Error(`Failed to upload to Cloudinary: ${error?.message || "Unknown error"}`);
         }
     },
 });

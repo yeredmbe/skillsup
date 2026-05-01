@@ -508,10 +508,6 @@ export const TeacherRegistration = () => {
 
                         </div>
                     </main>
-                    {/* 
-                    <footer className="border-t border-slate-200 bg-white px-6 py-6 text-center text-xs text-slate-400">
-                        {t('verification.footer')}
-                    </footer> */}
                 </div>
             </div>
         </React.Fragment>
