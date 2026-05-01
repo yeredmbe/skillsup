@@ -14,6 +14,7 @@ import type * as notifications from "../notifications.js";
 import type * as payment from "../payment.js";
 import type * as ratings from "../ratings.js";
 import type * as teachers from "../teachers.js";
+import type * as testCloudinary from "../testCloudinary.js";
 import type * as users from "../users.js";
 
 import type {
@@ -29,6 +30,7 @@ declare const fullApi: ApiFromModules<{
   payment: typeof payment;
   ratings: typeof ratings;
   teachers: typeof teachers;
+  testCloudinary: typeof testCloudinary;
   users: typeof users;
 }>;
 

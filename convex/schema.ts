@@ -14,7 +14,6 @@ export default defineSchema({
         .index("by_clerkId", ["clerkId"])
         .index("by_role", ["role"]),
 
-    // ─── teacher extended profile ────────────────────────────────
     teacherProfiles: defineTable({
         userId: v.id("users"),
         phone: v.string(),
@@ -28,15 +27,19 @@ export default defineSchema({
         diplomaPicture: v.optional(v.string()),
         profileVideo: v.optional(v.string()),
         bio: v.optional(v.string()),
+        // Added missing fields
+        firstName: v.optional(v.string()),
+        lastName: v.optional(v.string()),
+        location: v.optional(v.string()),
         status: v.union(
-            v.literal("draft"),     // filling out form
-            v.literal("pending"),   // paid, awaiting admin
-            v.literal("approved"),  // live & searchable
+            v.literal("draft"),
+            v.literal("pending"),
+            v.literal("approved"),
             v.literal("rejected"),
         ),
         isVerified: v.boolean(),
         rejectionReason: v.optional(v.string()),
-        starCount: v.number(),   // cached for fast sorting
+        starCount: v.number(),
         ratingCount: v.number(),
         createdAt: v.number(),
         updatedAt: v.number(),
@@ -66,11 +69,11 @@ export default defineSchema({
             v.literal("completed"),
             v.literal("failed"),
         ),
-        stripeSessionId: v.optional(v.string()),
+        transactionId: v.optional(v.string()),
         createdAt: v.number(),
     })
         .index("by_userId", ["userId"])
-        .index("by_stripeSession", ["stripeSessionId"]),
+        .index("by_transactionId", ["transactionId"]),
 
     // ─── system notifications ────────────────────────────────────
     notifications: defineTable({

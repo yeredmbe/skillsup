@@ -13,7 +13,7 @@ export const TeacherProfile = () => {
     const myProfile = useQuery(api.teachers.getMyProfile, isMe ? undefined : "skip");
     const publicProfile = useQuery(api.teachers.getTeacherProfile, !isMe && me !== undefined && !isAdmin ? { profileId: id } : "skip");
     const adminProfile = useQuery(api.admin.adminGetTeacherProfile, !isMe && isAdmin ? { profileId: id } : "skip");
-    
+
     const profile = isMe ? myProfile : (isAdmin ? adminProfile : publicProfile);
 
     if (me === undefined || profile === undefined) return <div className="mt-24 text-center py-20"><div className="animate-spin size-8 border-4 border-primary border-t-transparent rounded-full mx-auto"></div></div>;
@@ -23,7 +23,7 @@ export const TeacherProfile = () => {
         return <AdminTeacherProfileView profile={profile} id={profile._id} />;
     }
 
-    return <GuestTeacherProfileView profile={profile} id={profile._id} isMe={isMe} />;
+    return <GuestTeacherProfileView profile={profile} id={profile._id} isMe={isMe} me={me} />;
 };
 
 // ==============================================================
@@ -32,7 +32,7 @@ export const TeacherProfile = () => {
 const AdminTeacherProfileView = ({ profile, id }) => {
     const navigate = useNavigate();
     const [adminNotes, setAdminNotes] = useState('');
-    
+
     const approveTeacher = useMutation(api.admin.approveTeacher);
     const rejectTeacher = useMutation(api.admin.rejectTeacher);
 
@@ -55,8 +55,8 @@ const AdminTeacherProfileView = ({ profile, id }) => {
         <main className="max-w-6xl mx-auto px-6 py-12 mt-16 font-sans">
             {/* Breadcrumbs */}
             <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest mb-8">
-                <span className="material-symbols-outlined text-[14px]">grid_view</span> Dashboard 
-                <span>/</span> Applications 
+                <span className="material-symbols-outlined text-[14px]">grid_view</span> Dashboard
+                <span>/</span> Applications
                 <span className="text-slate-900">/ Review Profile</span>
             </div>
 
@@ -89,7 +89,7 @@ const AdminTeacherProfileView = ({ profile, id }) => {
                     <div className="bg-[#e9e3d3] rounded-2xl p-6 flex flex-col items-center text-center">
                         <div className="size-48 bg-white/50 rounded-xl mb-4 overflow-hidden shadow-inner border border-white/20">
                             {profile.profilePicture ? (
-                                <img src={profile.profilePicture} alt="Profile" className="w-full h-full object-cover"/>
+                                <img src={profile.profilePicture} alt="Profile" className="w-full h-full object-cover" />
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center text-5xl font-black text-black/10">{profile.userName?.charAt(0)}</div>
                             )}
@@ -117,7 +117,7 @@ const AdminTeacherProfileView = ({ profile, id }) => {
                                 </div>
                             </div>
                         </div>
-                        
+
                         {profile.whatsappUrl && (
                             <a href={profile.whatsappUrl.startsWith('http') ? profile.whatsappUrl : `https://${profile.whatsappUrl}`} target="_blank" rel="noreferrer" className="mt-6 flex items-center justify-center gap-2 w-full py-3 bg-emerald-50 text-emerald-600 rounded-xl text-sm font-bold hover:bg-emerald-100 transition-colors">
                                 <span className="material-symbols-outlined">forum</span> Message via WhatsApp
@@ -128,7 +128,7 @@ const AdminTeacherProfileView = ({ profile, id }) => {
 
                 {/* Right Column */}
                 <div className="lg:col-span-2 space-y-6">
-                    
+
                     {/* Introduction Video */}
                     <div className="bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm">
                         <h4 className="text-lg font-black tracking-tight flex items-center gap-2 mb-6">
@@ -153,7 +153,7 @@ const AdminTeacherProfileView = ({ profile, id }) => {
                         <h4 className="text-lg font-black tracking-tight flex items-center gap-2 mb-6">
                             <span className="material-symbols-outlined text-xl">school</span> Academic & Professional
                         </h4>
-                        
+
                         <div className="mb-8">
                             <p className="text-[10px] uppercase tracking-widest font-black text-slate-400 mb-3">Last Diploma Obtained</p>
                             <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
@@ -201,13 +201,13 @@ const AdminTeacherProfileView = ({ profile, id }) => {
                         <h4 className="text-lg font-black tracking-tight flex items-center gap-2 mb-4">
                             <span className="material-symbols-outlined text-xl">edit_document</span> Internal Admin Notes
                         </h4>
-                        <textarea 
+                        <textarea
                             value={adminNotes}
                             onChange={e => setAdminNotes(e.target.value)}
                             placeholder="Add a private note about this application for other administrators..."
                             className="w-full bg-white border border-slate-200 rounded-xl p-4 text-sm focus:ring-1 focus:ring-slate-900 focus:border-slate-900 outline-none min-h-[120px] resize-y"
                         ></textarea>
-                        
+
                         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
                             <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                                 Status: <span className="text-slate-900">READY FOR DECISION</span>
@@ -232,7 +232,7 @@ const AdminTeacherProfileView = ({ profile, id }) => {
 // ==============================================================
 // 2. PUBLIC GUEST VIEW (The original implementation)
 // ==============================================================
-const GuestTeacherProfileView = ({ profile, id, isMe }) => {
+const GuestTeacherProfileView = ({ profile, id, isMe, me }) => {
     const ratings = useQuery(api.ratings.getRatings, { teacherProfileId: id });
     const rateTeacher = useMutation(api.ratings.rateTeacher);
 
@@ -301,13 +301,13 @@ const GuestTeacherProfileView = ({ profile, id, isMe }) => {
 
                         <div className="flex-1 text-center md:text-left pt-2 md:pt-14">
                             <div className="flex items-center justify-center md:justify-start gap-2">
-                                <h2 className="text-3xl font-bold tracking-tight">{profile.userName}</h2>
+                                <h2 className="text-3xl font-bold tracking-tight">{profile.firstName} {profile.lastName}</h2>
                                 <span className="material-symbols-outlined text-primary fill-1" title="Verified Expert">verified</span>
                             </div>
-                            <p className="text-slate-500 font-medium">Verified Teacher</p>
+                            <p className="text-slate-500 font-medium">Status : {profile.status}</p>
                             <div className="mt-2 flex items-center justify-center md:justify-start gap-4 text-sm text-slate-500">
                                 <span className="flex items-center gap-1">
-                                    <span className="material-symbols-outlined text-base">star</span> 
+                                    <span className="material-symbols-outlined text-base">star</span>
                                     {profile.ratingCount ? (profile.starCount / profile.ratingCount).toFixed(1) : 'No'} ({profile.ratingCount} reviews)
                                 </span>
                             </div>
@@ -404,8 +404,8 @@ const GuestTeacherProfileView = ({ profile, id, isMe }) => {
                             <span className="material-symbols-outlined text-primary">star</span>
                             Ratings & Reviews
                         </h3>
-                        
-                        {me?.role === 'guest' ? (
+
+                        {!isMe && me?.role === 'guest' ? (
                             <div className="mb-8 p-6 bg-primary/5 rounded-2xl border border-primary/10 flex flex-col sm:flex-row items-center justify-between gap-4">
                                 <div>
                                     <h4 className="font-bold text-primary text-lg">Leave a Review</h4>
@@ -416,7 +416,7 @@ const GuestTeacherProfileView = ({ profile, id, isMe }) => {
                                     Write Review
                                 </Link>
                             </div>
-                        ) : !me ? (
+                        ) : !isMe && !me ? (
                             <div className="mb-8 p-6 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-center">
                                 <p className="text-sm font-medium text-slate-500">Please log in as a student to leave a review.</p>
                             </div>
@@ -427,7 +427,7 @@ const GuestTeacherProfileView = ({ profile, id, isMe }) => {
                                 <div key={r._id} className="pb-4 border-b border-slate-100 last:border-0 last:pb-0">
                                     <div className="flex items-center gap-2 mb-1">
                                         <div className="flex">
-                                            {[1,2,3,4,5].map(star => (
+                                            {[1, 2, 3, 4, 5].map(star => (
                                                 <span key={star} className={`material-symbols-outlined text-sm ${r.stars >= star ? 'text-yellow-400 fill-1' : 'text-slate-300'}`}>star</span>
                                             ))}
                                         </div>

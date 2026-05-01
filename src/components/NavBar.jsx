@@ -11,21 +11,21 @@ const playNotificationSound = () => {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         if (!AudioContext) return;
         const ctx = new AudioContext();
-        
+
         const osc = ctx.createOscillator();
         const gainNode = ctx.createGain();
-        
+
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(880, ctx.currentTime); // A5
-        osc.frequency.exponentialRampToValueAtTime(1100, ctx.currentTime + 0.1); // C6#
-        
+        osc.frequency.setValueAtTime(880, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1100, ctx.currentTime + 0.1);
+
         gainNode.gain.setValueAtTime(0, ctx.currentTime);
         gainNode.gain.linearRampToValueAtTime(0.1, ctx.currentTime + 0.05);
         gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
-        
+
         osc.connect(gainNode);
         gainNode.connect(ctx.destination);
-        
+
         osc.start();
         osc.stop(ctx.currentTime + 0.5);
     } catch (e) {
@@ -96,7 +96,7 @@ const NotificationBell = () => {
 
 function NavBar() {
     const { t } = useTranslation();
-    const [menuOpen, setMenuOpen] = useState(true);
+    const [menuOpen, setMenuOpen] = useState(false);
     const { user, isSignedIn } = useUser();
     const upsertUser = useMutation(api.users.upsertUser);
     const me = useQuery(api.users.getMe);
@@ -117,7 +117,7 @@ function NavBar() {
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
 
                     {/* Logo */}
-                    <Link to="/" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 group cursor-pointer">
+                    <Link to="/" className="flex items-center gap-2 group cursor-pointer">
                         <div className="bg-primary p-1.5 rounded text-white flex items-center justify-center">
                             <span className="material-symbols-outlined text-xl">school</span>
                         </div>
@@ -128,11 +128,11 @@ function NavBar() {
 
                     {/* Desktop menu */}
                     <div className="hidden md:flex items-center gap-10">
-                        <Link onClick={() => setMenuOpen(false)} className="text-sm font-semibold hover:text-primary/70" to="/teachers">{t('landing.teachers')}</Link>
-                        <Link onClick={() => setMenuOpen(false)} className="text-sm font-semibold hover:text-primary/70" to="/verify">{t('landing.becomeTutor')}</Link>
-                        <Link onClick={() => setMenuOpen(false)} className="text-sm font-semibold hover:text-primary/70" to="/settings">{t('landing.howItWorks')}</Link>
+                        <Link className="text-sm font-semibold hover:text-primary/70" to="/teachers">{t('landing.teachers')}</Link>
+                        <Link className="text-sm font-semibold hover:text-primary/70" to="/verify">{t('landing.becomeTutor')}</Link>
+                        <Link className="text-sm font-semibold hover:text-primary/70" to="/settings">{t('landing.howItWorks')}</Link>
                         {me?.role === 'admin' && (
-                            <Link onClick={() => setMenuOpen(false)} className="text-sm font-bold text-rose-500 hover:text-rose-600" to="/admin">Admin Panel</Link>
+                            <Link className="text-sm font-bold text-rose-500 hover:text-rose-600" to="/admin">Admin Panel</Link>
                         )}
                     </div>
 
@@ -159,14 +159,14 @@ function NavBar() {
                             <NotificationBell />
                         </Authenticated>
                         <button className="material-symbols-outlined text-2xl flex items-center justify-center focus:outline-none" onClick={() => setMenuOpen(!menuOpen)}>
-                            {menuOpen ? "menu" : "close"}
+                            {menuOpen ? "close" : "menu"}
                         </button>
                     </div>
 
                 </div>
             </nav>
 
-            <div className={`md:hidden fixed left-0 right-0 top-[7%] bg-white z-40 px-6 py-6 space-y-6 ${menuOpen ? "-translate-y-100 opacity-0" : "translate-y-0 opacity-100"} transition-all duration-500 shadow-xl`}>
+            <div className={`md:hidden fixed left-0 right-0 top-[7%] bg-white z-40 px-6 py-6 space-y-6 ${menuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"} transition-all duration-500 shadow-xl`}>
 
                 <div className="flex justify-between items-center pb-4 border-b">
                     <span className="font-bold text-sm text-slate-500">Language / Langue</span>
@@ -200,7 +200,7 @@ function NavBar() {
                 <Unauthenticated>
                     <div className="pt-4 border-t space-y-2">
                         <SignInButton mode="modal">
-                            <button className=" w-full text-center py-2  bg-primary text-white rounded-lg font-bold">
+                            <button className="w-full text-center py-2 bg-primary text-white rounded-lg font-bold">
                                 {t('landing.logIn')}
                             </button>
                         </SignInButton>

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { useAction, useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
-import { fileToBase64 } from '../utils/fileHelpers';
+import { uploadToCloudinary } from '../utils/cloudinaryUpload';
 import { useNavigate } from 'react-router-dom';
 
 export const TeacherRegistration = () => {
@@ -12,12 +12,12 @@ export const TeacherRegistration = () => {
     const [stage, setStage] = useState(0);
     const [animating, setAnimating] = useState(false);
     const trackRef = useRef(null);
-    const [isSelected, setIsSelected] = useState(null);
+    const [isSelected, setIsSelected] = useState("MTN");
 
     // Convex Mutations and Actions
     const upsertProfile = useMutation(api.teachers.upsertProfile);
     const submitForApproval = useMutation(api.teachers.submitForApproval);
-    const uploadMedia = useAction(api.cloudinary.uploadMedia);
+    const getUploadSignature = useAction(api.cloudinary.getUploadSignature);
     const processPayment = useAction(api.payment.processToumkapPayment);
 
     // Form State
@@ -36,6 +36,7 @@ export const TeacherRegistration = () => {
     // File State
     const [files, setFiles] = useState({
         profilePhoto: null,
+        coverPhoto: null,
         introVideo: null,
         diploma: null
     });
@@ -69,37 +70,39 @@ export const TeacherRegistration = () => {
             setIsUploading(true);
             setErrorMsg('');
 
-            // Upload files to Cloudinary
-            let profileUrl, videoUrl, diplomaUrl;
+            let profileUrl, coverUrl, videoUrl, diplomaUrl;
 
             if (files.profilePhoto) {
-                const b64 = await fileToBase64(files.profilePhoto);
-                profileUrl = await uploadMedia({ fileBase64: b64, resourceType: 'image' });
+                profileUrl = await uploadToCloudinary(files.profilePhoto, 'image', getUploadSignature);
+            }
+            if (files.coverPhoto) {
+                coverUrl = await uploadToCloudinary(files.coverPhoto, 'image', getUploadSignature);
             }
             if (files.introVideo) {
-                const b64 = await fileToBase64(files.introVideo);
-                videoUrl = await uploadMedia({ fileBase64: b64, resourceType: 'video' });
+                videoUrl = await uploadToCloudinary(files.introVideo, 'video', getUploadSignature);
             }
             if (files.diploma) {
-                const b64 = await fileToBase64(files.diploma);
-                diplomaUrl = await uploadMedia({ fileBase64: b64, resourceType: 'auto' });
+                diplomaUrl = await uploadToCloudinary(files.diploma, 'auto', getUploadSignature);
             }
 
-            // Save to Convex
             await upsertProfile({
+                firstName: formData.firstName,
+                lastName: formData.lastName,
                 phone: formData.phone,
                 whatsappUrl: formData.whatsappUrl,
+                location: formData.location,
                 lastDiploma: formData.lastDiploma,
+                bio: formData.bio,
                 subjects: formData.techniques ? formData.techniques.split(',').map(s => s.trim()) : [],
                 monthlyRate: Number(formData.monthlyRate) || 0,
-                bio: formData.bio,
                 profilePicture: profileUrl,
+                coverPicture: coverUrl,
                 profileVideo: videoUrl,
-                diplomaPicture: diplomaUrl
+                diplomaPicture: diplomaUrl,
             });
 
             setIsUploading(false);
-            goTo(1); // Move to Payment
+            goTo(1);
         } catch (err) {
             console.error(err);
             const userMsg = err.data || err.message || "An error occurred.";
@@ -118,18 +121,20 @@ export const TeacherRegistration = () => {
             setIsPaying(true);
             setErrorMsg('');
 
-            // Call Toumkap Payment API via Convex Action
             const paymentResult = await processPayment({
                 phoneNumber: momoPhone,
-                amount: import.meta.env.VITE_TEACHER_VERIFICATION_FEE // Verification fee in XAF
+                amount: parseFloat(import.meta.env.VITE_TEACHER_VERIFICATION_FEE)
             });
 
-            if (paymentResult.success) {
-                // Now submit for admin approval
-                await submitForApproval();
-                alert("Payment successful and profile submitted for approval!");
-                navigate('/profile/me'); // Navigate to their own profile to see status
+            if (!paymentResult || !paymentResult.success) {
+                setErrorMsg("Payment was not completed. Please try again.");
+                setIsPaying(false);
+                return;
             }
+
+            await submitForApproval();
+            alert("Payment successful and profile submitted for approval!");
+            navigate('/profile/me');
 
         } catch (err) {
             console.error(err);
@@ -158,24 +163,8 @@ export const TeacherRegistration = () => {
                 }
             `}</style>
 
-            <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+            <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden mt-15">
                 <div className="flex h-full grow flex-col">
-
-                    <header className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4 md:px-20 lg:px-40">
-                        <div className="flex items-center gap-3">
-                            <div className="flex h-10 w-10 items-center justify-center rounded bg-primary text-white">
-                                <span className="material-symbols-outlined">school</span>
-                            </div>
-                            <h2 className="text-lg font-bold tracking-tight">{t('verification.joinFaculty')}</h2>
-                        </div>
-                        <div className="flex gap-4">
-                            <LanguageSwitcher />
-                            <button className="flex items-center justify-center rounded-lg h-10 bg-slate-100 px-4 text-sm font-bold">
-                                <span className="material-symbols-outlined mr-2">account_circle</span>
-                                {t('verification.profile')}
-                            </button>
-                        </div>
-                    </header>
 
                     <main className="flex-1 px-6 py-10 md:px-20 lg:px-40">
                         <div className="mx-auto max-w-[800px]">
@@ -236,21 +225,46 @@ export const TeacherRegistration = () => {
 
                                             <section>
                                                 <h2 className="mb-6 text-xl font-bold tracking-tight border-b border-slate-200 pb-2">{t('verification.profilePhoto')}</h2>
-                                                <div className="flex flex-col items-center gap-6 sm:flex-row">
-                                                    <div className="relative flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-slate-300 bg-slate-50">
-                                                        {files.profilePhoto ? (
-                                                            <img src={URL.createObjectURL(files.profilePhoto)} className="w-full h-full object-cover" alt="preview" />
-                                                        ) : (
-                                                            <span className="material-symbols-outlined text-4xl text-slate-400">add_a_photo</span>
-                                                        )}
+                                                <div className="flex flex-col gap-8">
+
+                                                    {/* Profile Photo */}
+                                                    <div className="flex flex-col items-center gap-6 sm:flex-row">
+                                                        <div className="relative flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-slate-300 bg-slate-50 shrink-0">
+                                                            {files.profilePhoto ? (
+                                                                <img src={URL.createObjectURL(files.profilePhoto)} className="w-full h-full object-cover" alt="preview" />
+                                                            ) : (
+                                                                <span className="material-symbols-outlined text-4xl text-slate-400">add_a_photo</span>
+                                                            )}
+                                                        </div>
+                                                        <div className="text-center sm:text-left">
+                                                            <p className="text-sm font-semibold text-slate-700 mb-2">{t('verification.profilePhoto')}</p>
+                                                            <label className="cursor-pointer rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white transition hover:opacity-90 inline-block">
+                                                                {t('verification.uploadPhoto')}
+                                                                <input type="file" accept="image/*" className="hidden" onChange={(e) => handleFileChange(e, 'profilePhoto')} />
+                                                            </label>
+                                                            <p className="mt-2 text-xs text-slate-500">{t('verification.photoHint')}</p>
+                                                        </div>
                                                     </div>
-                                                    <div className="text-center sm:text-left">
-                                                        <label className="cursor-pointer rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white transition hover:opacity-90 inline-block">
-                                                            {t('verification.uploadPhoto')}
-                                                            <input type="file" accept="image/*" className="hidden" onChange={(e) => handleFileChange(e, 'profilePhoto')} />
-                                                        </label>
-                                                        <p className="mt-2 text-xs text-slate-500">{t('verification.photoHint')}</p>
+
+                                                    {/* Cover Picture */}
+                                                    <div className="flex flex-col items-center gap-6 sm:flex-row">
+                                                        <div className="relative flex h-32 w-52 items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 shrink-0">
+                                                            {files.coverPhoto ? (
+                                                                <img src={URL.createObjectURL(files.coverPhoto)} className="w-full h-full object-cover" alt="cover preview" />
+                                                            ) : (
+                                                                <span className="material-symbols-outlined text-4xl text-slate-400">image</span>
+                                                            )}
+                                                        </div>
+                                                        <div className="text-center sm:text-left">
+                                                            <p className="text-sm font-semibold text-slate-700 mb-2">Cover Picture</p>
+                                                            <label className="cursor-pointer rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white transition hover:opacity-90 inline-block">
+                                                                Upload Cover
+                                                                <input type="file" accept="image/*" className="hidden" onChange={(e) => handleFileChange(e, 'coverPhoto')} />
+                                                            </label>
+                                                            <p className="mt-2 text-xs text-slate-500">Recommended: 1200×400px. JPG or PNG.</p>
+                                                        </div>
                                                     </div>
+
                                                 </div>
                                             </section>
 
@@ -446,17 +460,32 @@ export const TeacherRegistration = () => {
                                                         <div className="space-y-4">
                                                             <label className="text-sm font-bold text-slate-700">{t('verification.selectProvider')}</label>
                                                             <div className="grid grid-cols-2 gap-4">
-                                                                <label onClick={() => setIsSelected("MTN")} className={`relative flex flex-col items-center justify-center p-4 border-2 ${isSelected === "MTN" && "border-primary"} rounded-xl cursor-pointer hover:bg-slate-50 transition-all bg-slate-50`}>
-                                                                    <input defaultChecked className="sr-only" name="provider" type="radio" value="mtn" />
+                                                                <label onClick={() => setIsSelected("MTN")} className={`relative flex flex-col items-center justify-center p-4 border-2 ${isSelected === "MTN" ? "border-primary" : "border-slate-200"} rounded-xl cursor-pointer hover:bg-slate-50 transition-all bg-slate-50`}>
+                                                                    <input
+                                                                        className="sr-only"
+                                                                        name="provider"
+                                                                        type="radio"
+                                                                        value="mtn"
+                                                                        checked={isSelected === "MTN"}
+                                                                        onChange={() => setIsSelected("MTN")}
+                                                                    />
                                                                     <span className="material-symbols-outlined text-3xl mb-2">smartphone</span>
                                                                     <span className="font-bold text-sm">{t('verification.momo')}</span>
-                                                                    <div className="absolute top-2 right-2 h-4 w-4 rounded-full border-4 border-primary bg-primary"></div>
+                                                                    <div className={`absolute top-2 right-2 h-4 w-4 rounded-full border-2 transition-all ${isSelected === "MTN" ? "border-4 border-primary bg-primary" : "border-slate-300"}`}></div>
                                                                 </label>
-                                                                <label onClick={() => setIsSelected("ORANGE")} className={`relative flex flex-col items-center justify-center p-4 border-2 ${isSelected === "ORANGE" && "border-primary"} rounded-xl cursor-pointer hover:bg-slate-50 transition-all bg-slate-50`}>
-                                                                    <input className="sr-only" name="provider" type="radio" value="orange" />
+
+                                                                <label onClick={() => setIsSelected("ORANGE")} className={`relative flex flex-col items-center justify-center p-4 border-2 ${isSelected === "ORANGE" ? "border-primary" : "border-slate-200"} rounded-xl cursor-pointer hover:bg-slate-50 transition-all bg-slate-50`}>
+                                                                    <input
+                                                                        className="sr-only"
+                                                                        name="provider"
+                                                                        type="radio"
+                                                                        value="orange"
+                                                                        checked={isSelected === "ORANGE"}
+                                                                        onChange={() => setIsSelected("ORANGE")}
+                                                                    />
                                                                     <span className="material-symbols-outlined text-3xl mb-2">payments</span>
                                                                     <span className="font-bold text-sm">{t('verification.orangeMoney')}</span>
-                                                                    <div className="absolute top-2 right-2 h-4 w-4 rounded-full border-2 border-slate-300"></div>
+                                                                    <div className={`absolute top-2 right-2 h-4 w-4 rounded-full border-2 transition-all ${isSelected === "ORANGE" ? "border-4 border-primary bg-primary" : "border-slate-300"}`}></div>
                                                                 </label>
                                                             </div>
                                                         </div>
