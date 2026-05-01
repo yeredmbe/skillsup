@@ -14,6 +14,10 @@ export const upsertProfile = mutation({
         coverPicture: v.optional(v.string()),
         diplomaPicture: v.optional(v.string()),
         profileVideo: v.optional(v.string()),
+        // Added missing fields
+        firstName: v.optional(v.string()),
+        lastName: v.optional(v.string()),
+        location: v.optional(v.string()),
     },
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
@@ -93,8 +97,8 @@ export const submitForApproval = mutation({
             .query("users")
             .withIndex("by_role", (q) => q.eq("role", "admin"))
             .collect();
-            
-        await Promise.all(admins.map(admin => 
+
+        await Promise.all(admins.map(admin =>
             ctx.db.insert("notifications", {
                 userId: admin._id,
                 title: "New Teacher Application",
@@ -144,7 +148,7 @@ export const searchTeachers = query({
                 return { ...p, userName: user.name, userEmail: user.email };
             })
         );
-        
+
         return results.filter((p) => p !== null);
     },
 });

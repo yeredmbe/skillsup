@@ -60,7 +60,7 @@ export const Landing = () => {
             scrollContainerRef.current.scrollBy({ left: -340, behavior: 'smooth' });
         }
     };
-    
+
     const scrollRight = () => {
         if (scrollContainerRef.current) {
             scrollContainerRef.current.scrollBy({ left: 340, behavior: 'smooth' });
@@ -187,9 +187,9 @@ export const Landing = () => {
                         {displayTeachers.map((teacher, index) => {
                             const isDummy = teacher.isDummy;
                             const rating = teacher.ratingCount ? (teacher.starCount / teacher.ratingCount).toFixed(1) : teacher.dummyRating || 'New';
-                            
+
                             return (
-                                <div key={teacher._id || index} className="min-w-[320px] snap-start bg-white rounded-2xl border border-slate-100 p-5 group hover:border-primary transition-all shadow-sm">
+                                <div key={teacher._id || index} className="min-w-[120px] sm:w-1/3 snap-start bg-white rounded-2xl border border-slate-100 p-5 group hover:border-primary transition-all shadow-sm">
                                     <div className="relative mb-4">
                                         <img className="w-full aspect-[4/3] object-cover rounded-xl" alt="Teacher Portrait" src={teacher.profilePicture || teacher.dummyImage || "https://lh3.googleusercontent.com/aida-public/AB6AXuCuZ6WKQryFRa241nUU48bqH9KAXwp34ru-BYB7XSyu0g_0YkbGNIdD5OcWipBgh9pjOXb7ADp5zV5nxBJtWNLLoLt0QAAZFPC0_MRygJiU31jBebBDE7pdgrB-Rsw5Nmc1MMtzfH3sujhNc3BrqgiCfid9yrZmhZwpf2Pgjpdt-PN0UgHlGYZc-ICyPnWg6_OV5nqvYrMJ6zFfWldfCZxhXjzHxw2otvi_gq_xhR32y6dJsvEZb6K-TNjtgFpC-tw1CC9iU07l7Q"} />
                                         <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1">
@@ -203,7 +203,7 @@ export const Landing = () => {
                                                 <h4 className="font-bold text-lg">{teacher.userName || teacher.dummyName}</h4>
                                                 <p className="text-sm text-slate-500 line-clamp-1">{teacher.subjects?.join(', ') || teacher.dummySubject}</p>
                                             </div>
-                                            <p className="font-black text-primary">${teacher.monthlyRate || teacher.dummyRate}/hr</p>
+                                            <p className="font-black text-primary">{teacher.monthlyRate || teacher.dummyRate} XAF/hr</p>
                                         </div>
                                         <div className="flex flex-wrap gap-2">
                                             {(teacher.subjects || teacher.dummyTags).slice(0, 2).map((sub, i) => (

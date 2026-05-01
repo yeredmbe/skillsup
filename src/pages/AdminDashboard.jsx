@@ -18,6 +18,7 @@ export const AdminDashboard = () => {
 
     const isAdmin = me !== undefined && me !== null && me.role === 'admin';
     const users = useQuery(api.admin.listUsers, isAdmin ? {} : "skip") || [];
+    const totalRevenue = useQuery(api.admin.getTotalRevenue, isAdmin ? {} : "skip") || 0;
     const setUserBan = useMutation(api.admin.setUserBan);
 
     // Security Check
@@ -48,9 +49,6 @@ export const AdminDashboard = () => {
     const totalFiltered = filteredUsers.length;
     const totalPages = Math.ceil(totalFiltered / usersPerPage);
     const paginatedUsers = filteredUsers.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage);
-
-    // Derived Stats
-    const totalRevenue = useQuery(api.admin.getTotalRevenue, isAdmin ? {} : "skip") || 0;
 
     // Most rated teachers
     const sortedTeachers = [...users]
@@ -222,7 +220,7 @@ export const AdminDashboard = () => {
                                         const isTeacher = u.role === 'teacher';
                                         const status = u.profile ? u.profile.status : 'not verified';
                                         const rating = u.profile && u.profile.ratingCount > 0 ? (u.profile.starCount / u.profile.ratingCount).toFixed(1) : '—';
-                                        const likes = u.profile ? u.profile.ratingCount * 12 : '—'; // Mock likes based on rating count for aesthetic matching
+                                        const likes = u.profile ? u.profile.ratingCount * 12 : '—';
 
                                         return (
                                             <tr key={u._id} className={`border-b border-slate-50 hover:bg-slate-50 transition-colors ${u.isBanned ? 'opacity-40' : ''}`}>
@@ -307,7 +305,7 @@ export const AdminDashboard = () => {
                 </div>
             </main>
 
-            {/* Floating Action Button placeholder */}
+            {/* Floating Action Button */}
             <button className="fixed bottom-8 right-8 size-14 bg-[#0f172a] text-white rounded-full shadow-lg flex items-center justify-center hover:scale-105 transition-transform hidden md:flex">
                 <span className="material-symbols-outlined text-2xl">add</span>
             </button>
