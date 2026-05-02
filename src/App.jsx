@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import { Landing } from './pages/Landing';
-import { SignIn } from './pages/SignIn';
 import { Dashboard } from './pages/Dashboard';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { FindTeacher } from './pages/FindTeacher';

@@ -91,7 +91,7 @@ export const processToumkapPayment = action({
 
         const txData: any = await txRes.json();
 
-        console.log("Toumkap transaction response:", JSON.stringify(txData));
+        // console.log("Toumkap transaction response:", JSON.stringify(txData));
 
         const transactionId = txData.transactionReference;
 

@@ -138,7 +138,7 @@ export const TeacherRegistration = () => {
 
         } catch (err) {
             console.error(err);
-            setErrorMsg("Payment failed: " + (err.message || "Please try again."));
+            setErrorMsg("PAYMENT FAILED: You have to approve the payment! ");
             setIsPaying(false);
         }
     };
