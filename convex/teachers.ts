@@ -8,7 +8,6 @@ export const upsertProfile = mutation({
         whatsappUrl: v.string(),
         lastDiploma: v.string(),
         subjects: v.array(v.string()),
-        monthlyRate: v.number(),
         bio: v.optional(v.string()),
         profilePicture: v.optional(v.string()),
         coverPicture: v.optional(v.string()),
@@ -114,7 +113,6 @@ export const submitForApproval = mutation({
 export const searchTeachers = query({
     args: {
         subject: v.optional(v.string()),
-        maxRate: v.optional(v.number()),
         minRating: v.optional(v.number()),
         sortByStars: v.optional(v.boolean()),
     },
@@ -126,9 +124,6 @@ export const searchTeachers = query({
 
         if (args.subject) {
             profiles = profiles.filter((p) => p.subjects.includes(args.subject!));
-        }
-        if (args.maxRate !== undefined) {
-            profiles = profiles.filter((p) => p.monthlyRate <= args.maxRate!);
         }
         if (args.minRating !== undefined) {
             profiles = profiles.filter((p) => {

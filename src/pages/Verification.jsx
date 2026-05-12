@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
-import { useAction, useMutation } from 'convex/react';
+import { useAction, useMutation, useQuery } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import { uploadToCloudinary } from '../utils/cloudinaryUpload';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export const TeacherRegistration = () => {
     const { t } = useTranslation();
@@ -19,6 +19,17 @@ export const TeacherRegistration = () => {
     const submitForApproval = useMutation(api.teachers.submitForApproval);
     const getUploadSignature = useAction(api.cloudinary.getUploadSignature);
     const processPayment = useAction(api.payment.processToumkapPayment);
+    const myProfile = useQuery(api.teachers.getMyProfile);
+
+    const initialized = useRef(false);
+    React.useEffect(() => {
+        if (myProfile && !initialized.current) {
+            initialized.current = true;
+            if (myProfile.status === 'draft') {
+                setStage(1);
+            }
+        }
+    }, [myProfile]);
 
     // Form State
     const [formData, setFormData] = useState({
@@ -29,8 +40,7 @@ export const TeacherRegistration = () => {
         lastDiploma: 'Bachelor\'s Degree',
         location: '',
         bio: '',
-        techniques: '',
-        monthlyRate: ''
+        techniques: ''
     });
 
     // File State
@@ -70,7 +80,25 @@ export const TeacherRegistration = () => {
             setIsUploading(true);
             setErrorMsg('');
 
-            let profileUrl, coverUrl, videoUrl, diplomaUrl;
+            // Validation for empty fields
+            if (!formData.firstName || !formData.lastName || !formData.phone || !formData.whatsappUrl || !formData.location || !formData.bio || !formData.techniques) {
+                setErrorMsg(t('verification.errorEmptyFields'));
+                setIsUploading(false);
+                return;
+            }
+
+            // Validation for required files
+            if ((!files.profilePhoto && (!myProfile || !myProfile.profilePicture)) || 
+                (!files.diploma && (!myProfile || !myProfile.diplomaPicture))) {
+                setErrorMsg(t('verification.errorMissingFiles'));
+                setIsUploading(false);
+                return;
+            }
+
+            let profileUrl = myProfile?.profilePicture;
+            let coverUrl = myProfile?.coverPicture;
+            let videoUrl = myProfile?.profileVideo;
+            let diplomaUrl = myProfile?.diplomaPicture;
 
             if (files.profilePhoto) {
                 profileUrl = await uploadToCloudinary(files.profilePhoto, 'image', getUploadSignature);
@@ -94,7 +122,6 @@ export const TeacherRegistration = () => {
                 lastDiploma: formData.lastDiploma,
                 bio: formData.bio,
                 subjects: formData.techniques ? formData.techniques.split(',').map(s => s.trim()) : [],
-                monthlyRate: Number(formData.monthlyRate) || 0,
                 profilePicture: profileUrl,
                 coverPicture: coverUrl,
                 profileVideo: videoUrl,
@@ -113,7 +140,7 @@ export const TeacherRegistration = () => {
 
     const handlePaymentSubmit = async () => {
         if (!momoPhone) {
-            setErrorMsg("Please enter your Mobile Money phone number.");
+            setErrorMsg(t('verification.errorMissingMomo'));
             return;
         }
 
@@ -127,7 +154,7 @@ export const TeacherRegistration = () => {
             });
 
             if (!paymentResult || !paymentResult.success) {
-                setErrorMsg("Payment was not completed. Please try again.");
+                setErrorMsg(t('verification.errorPaymentFailed'));
                 setIsPaying(false);
                 return;
             }
@@ -138,10 +165,23 @@ export const TeacherRegistration = () => {
 
         } catch (err) {
             console.error(err);
-            setErrorMsg("PAYMENT FAILED: You have to approve the payment! ");
+            setErrorMsg(t('verification.errorPaymentFailed'));
             setIsPaying(false);
         }
     };
+
+    if (myProfile === undefined) return <div className="mt-24 text-center py-20"><div className="animate-spin size-8 border-4 border-primary border-t-transparent rounded-full mx-auto"></div></div>;
+
+    if (myProfile && (myProfile.status === 'pending' || myProfile.status === 'approved')) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[80vh] px-6 text-center mt-15">
+                <span className="material-symbols-outlined text-6xl text-primary mb-4">task_alt</span>
+                <h1 className="text-3xl font-black mb-2 tracking-tight">Application Submitted</h1>
+                <p className="text-slate-500 mb-8 max-w-md">Your teacher profile application is currently {myProfile.status}. You will be notified once a decision has been made.</p>
+                <Link to="/profile/me" className="px-8 py-3 bg-primary text-white font-bold rounded-xl shadow-lg hover:bg-slate-900 transition-colors">View My Profile</Link>
+            </div>
+        );
+    }
 
     return (
         <React.Fragment>
@@ -360,18 +400,6 @@ export const TeacherRegistration = () => {
                                                 <div className="col-span-full flex flex-col gap-2">
                                                     <label className="text-sm font-semibold">{t('verification.techniques')} (Comma separated subjects)</label>
                                                     <textarea name="techniques" value={formData.techniques} onChange={handleInputChange} className="w-full rounded border-slate-300 focus:border-primary focus:ring-primary" placeholder="Math, Physics, English" rows="3"></textarea>
-                                                </div>
-                                            </section>
-
-                                            <section className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                                                <h2 className="col-span-full text-xl font-bold tracking-tight border-b border-slate-200 pb-2">{t('verification.financials')}</h2>
-                                                <div className="flex flex-col gap-2">
-                                                    <label className="text-sm font-semibold">{t('verification.pricePerMonth')}</label>
-                                                    <div className="flex">
-                                                        <span className="inline-flex items-center rounded-l border border-r-0 border-slate-300 bg-slate-50 px-3 text-slate-500">XAF</span>
-                                                        <input name="monthlyRate" value={formData.monthlyRate} onChange={handleInputChange} className="w-full rounded-r border-slate-300 focus:border-primary focus:ring-primary" placeholder="20000" type="number" />
-                                                    </div>
-                                                    <p className="text-xs text-slate-500">{t('verification.priceHint')}</p>
                                                 </div>
                                             </section>
 

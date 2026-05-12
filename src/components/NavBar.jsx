@@ -100,6 +100,7 @@ function NavBar() {
     const { user, isSignedIn } = useUser();
     const upsertUser = useMutation(api.users.upsertUser);
     const me = useQuery(api.users.getMe);
+    const myProfile = useQuery(api.teachers.getMyProfile);
 
     React.useEffect(() => {
         if (isSignedIn && user) {
@@ -129,7 +130,11 @@ function NavBar() {
                     {/* Desktop menu */}
                     <div className="hidden md:flex items-center gap-10">
                         <Link className="text-sm font-semibold hover:text-primary/70" to="/teachers">{t('landing.teachers')}</Link>
-                        <Link className="text-sm font-semibold hover:text-primary/70" to="/verify">{t('landing.becomeTutor')}</Link>
+                        {(!myProfile || (myProfile.status !== 'pending' && myProfile.status !== 'approved')) && (
+                            <Link className="text-sm font-semibold hover:text-primary/70" to="/verify">
+                                {myProfile?.status === 'draft' ? "Continue Application" : t('landing.becomeTutor')}
+                            </Link>
+                        )}
                         <Link className="text-sm font-semibold hover:text-primary/70" to="/settings">{t('landing.howItWorks')}</Link>
                         {me?.role === 'admin' && (
                             <Link className="text-sm font-bold text-rose-500 hover:text-rose-600" to="/admin">Admin Panel</Link>
@@ -183,9 +188,11 @@ function NavBar() {
                     {t('landing.teachers')}
                 </Link>
 
-                <Link to="/verify" className="block font-semibold" onClick={() => setMenuOpen(false)}>
-                    {t('landing.becomeTutor')}
-                </Link>
+                {(!myProfile || (myProfile.status !== 'pending' && myProfile.status !== 'approved')) && (
+                    <Link to="/verify" className="block font-semibold" onClick={() => setMenuOpen(false)}>
+                        {myProfile?.status === 'draft' ? "Continue Application" : t('landing.becomeTutor')}
+                    </Link>
+                )}
 
                 <Link to="/settings" className="block font-semibold" onClick={() => setMenuOpen(false)}>
                     {t('landing.howItWorks')}

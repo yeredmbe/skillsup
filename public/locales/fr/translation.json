@@ -104,7 +104,11 @@
     "promptInfo": "Vous recevrez une invite sur votre téléphone pour autoriser la transaction.",
     "termsAgree": "En cliquant sur « Initier le paiement », vous acceptez les conditions d'utilisation et la politique de confidentialité de SkillsUp. Tous les frais ne sont pas remboursables.",
     "back": "Retour",
-    "footer": "© 2024 Portail de recrutement des professeurs. Tous droits réservés."
+    "footer": "© 2024 Portail de recrutement des professeurs. Tous droits réservés.",
+    "errorEmptyFields": "Veuillez remplir tous les champs de texte avant de continuer.",
+    "errorMissingFiles": "Veuillez télécharger votre photo de profil et votre diplôme.",
+    "errorPaymentFailed": "Le paiement n'a pas été effectué. Veuillez approuver la demande sur votre téléphone ou vérifier votre solde. Si le problème persiste, réessayez plus tard.",
+    "errorMissingMomo": "Veuillez entrer votre numéro de téléphone Mobile Money."
   },
   "landing": {
     "teachers": "Professeurs",

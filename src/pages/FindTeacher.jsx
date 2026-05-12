@@ -105,7 +105,12 @@ export const FindTeacher = () => {
                                         <div className="p-5 flex flex-col flex-1">
                                             <div className="flex justify-between items-start mb-2">
                                                 <h3 className="text-lg font-bold">{teacher.userName}</h3>
-                                                <span className="text-primary font-black text-xl">{teacher.monthlyRate} <span className="text-xs font-normal text-slate-500">XAF/mo</span></span>
+                                                {teacher.location && (
+                                                    <span className="flex items-center text-xs font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">
+                                                        <span className="material-symbols-outlined text-[14px] mr-1">location_on</span>
+                                                        {teacher.location}
+                                                    </span>
+                                                )}
                                             </div>
                                             <p className="text-xs font-medium text-primary/60 mb-3 uppercase tracking-wider">{teacher.subjects?.[0] || 'Teacher'}</p>
                                             <p className="text-sm text-slate-600 line-clamp-3 mb-auto">

@@ -104,7 +104,11 @@
     "promptInfo": "You will receive a prompt on your phone to authorize the transaction.",
     "termsAgree": "By clicking \"Initiate Payment\", you agree to SkillsUp's Terms of Service and Privacy Policy. All fees are non-refundable.",
     "back": "Back",
-    "footer": "© 2024 Faculty Recruitment Portal. All rights reserved."
+    "footer": "© 2024 Faculty Recruitment Portal. All rights reserved.",
+    "errorEmptyFields": "Please fill in all text fields before continuing.",
+    "errorMissingFiles": "Please upload both your Profile Picture and Diploma.",
+    "errorPaymentFailed": "Payment was not completed. Please approve the prompt on your phone or check your balance. If the issue persists, try again later.",
+    "errorMissingMomo": "Please enter your Mobile Money phone number."
   },
   "landing": {
     "teachers": "Teachers",

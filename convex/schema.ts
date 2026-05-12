@@ -20,7 +20,7 @@ export default defineSchema({
         whatsappUrl: v.string(),
         lastDiploma: v.string(),
         subjects: v.array(v.string()),
-        monthlyRate: v.number(),
+        monthlyRate: v.optional(v.number()), // Kept for backwards compatibility with old records
         // Cloudinary URLs for uploaded files
         profilePicture: v.optional(v.string()),
         coverPicture: v.optional(v.string()),

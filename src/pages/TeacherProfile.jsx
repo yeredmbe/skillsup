@@ -188,12 +188,14 @@ const AdminTeacherProfileView = ({ profile, id }) => {
                                 {profile.subjects.map(s => <span key={s} className="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-md">{s}</span>)}
                             </div>
                         </div>
-                        <div className="bg-slate-900 text-white rounded-xl p-6 sm:w-64 shrink-0 flex flex-col items-center justify-center text-center shadow-lg relative overflow-hidden">
-                            <p className="text-[10px] font-black uppercase tracking-widest text-white/50 mb-2 relative z-10">Pricing Model</p>
-                            <h3 className="text-4xl font-black relative z-10">{profile.monthlyRate} <span className="text-lg font-bold text-white/70">XAF</span></h3>
-                            <p className="text-xs font-medium text-white/70 mt-1 relative z-10">Per Month</p>
-                            <div className="absolute -right-10 -bottom-10 size-32 bg-white/5 rounded-full blur-xl"></div>
-                        </div>
+                        {profile.location && (
+                            <div className="bg-slate-900 text-white rounded-xl p-6 sm:w-64 shrink-0 flex flex-col items-center justify-center text-center shadow-lg relative overflow-hidden">
+                                <span className="material-symbols-outlined text-4xl text-white/50 mb-2 relative z-10">location_on</span>
+                                <p className="text-[10px] font-black uppercase tracking-widest text-white/50 mb-2 relative z-10">Location</p>
+                                <h3 className="text-xl font-black relative z-10">{profile.location}</h3>
+                                <div className="absolute -right-10 -bottom-10 size-32 bg-white/5 rounded-full blur-xl"></div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Internal Admin Notes */}
@@ -348,13 +350,15 @@ const GuestTeacherProfileView = ({ profile, id, isMe, me }) => {
                     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                         <h3 className="text-lg font-bold mb-4">Quick Info</h3>
                         <div className="space-y-4">
-                            <div className="flex items-start gap-3">
-                                <span className="material-symbols-outlined text-slate-400">payments</span>
-                                <div>
-                                    <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Price per Month</p>
-                                    <p className="text-xl font-black text-primary">{profile.monthlyRate} XAF</p>
+                            {profile.location && (
+                                <div className="flex items-start gap-3">
+                                    <span className="material-symbols-outlined text-slate-400">location_on</span>
+                                    <div>
+                                        <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Location</p>
+                                        <p className="font-semibold text-slate-900">{profile.location}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                             <div className="flex items-start gap-3">
                                 <span className="material-symbols-outlined text-slate-400">history_edu</span>
                                 <div>

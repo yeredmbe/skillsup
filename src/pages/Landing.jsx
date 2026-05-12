@@ -45,7 +45,6 @@ export const Landing = () => {
             dummyRating: "4.9",
             dummyName: "Dr. Elena Rodriguez",
             dummySubject: t('landing.advancedMath'),
-            dummyRate: 45,
             dummyTags: [t('landing.calculus'), t('landing.satPrep')],
             dummyQuote: t('landing.elenaQuote')
         },
@@ -55,7 +54,6 @@ export const Landing = () => {
             dummyRating: "5.0",
             dummyName: "James Wilson",
             dummySubject: t('landing.pianoMusic'),
-            dummyRate: 60,
             dummyTags: [t('landing.classical'), t('landing.beginners')],
             dummyQuote: t('landing.jamesQuote')
         },
@@ -65,7 +63,6 @@ export const Landing = () => {
             dummyRating: "4.8",
             dummyName: "Sarah Jenkins",
             dummySubject: t('landing.creativeWriting'),
-            dummyRate: 40,
             dummyTags: [t('landing.english'), t('landing.essays')],
             dummyQuote: t('landing.sarahQuote')
         },
@@ -75,7 +72,6 @@ export const Landing = () => {
             dummyRating: "4.7",
             dummyName: "Michael Chen",
             dummySubject: t('landing.computerScience'),
-            dummyRate: 55,
             dummyTags: [t('landing.python'), t('landing.algorithms')],
             dummyQuote: t('landing.michaelQuote')
         }
@@ -623,7 +619,12 @@ export const Landing = () => {
                                                 <h4 className="font-bold text-lg">{teacher.userName || teacher.dummyName}</h4>
                                                 <p className="text-sm text-slate-500 line-clamp-1">{teacher.subjects?.join(', ') || teacher.dummySubject}</p>
                                             </div>
-                                            <p className="font-black text-primary">{teacher.monthlyRate || teacher.dummyRate} XAF/hr</p>
+                                            {teacher.location && (
+                                                <span className="flex items-center text-xs font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">
+                                                    <span className="material-symbols-outlined text-[14px] mr-1">location_on</span>
+                                                    {teacher.location}
+                                                </span>
+                                            )}
                                         </div>
                                         <div className="flex flex-wrap gap-2">
                                             {(teacher.subjects || teacher.dummyTags).slice(0, 2).map((sub, i) => (
